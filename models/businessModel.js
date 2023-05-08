@@ -1,0 +1,41 @@
+const mongoose = require("mongoose");
+
+const businessSchema = mongoose.Schema({
+  title: {
+    type: String,
+    required: [true, "Business must have a title"],
+  },
+  category: {
+    type: String,
+    enum: ["Car Service", "Bicycle Service", "Uber Partner"],
+  },
+  contact: {
+    phone: {
+      type: String,
+    },
+    website: {
+      type: String,
+    },
+  },
+  logo_url: {
+    type: String,
+  },
+  images_url: {
+    type: [String],
+  },
+  description: {
+    type: String,
+  },
+  location: {
+    lat: {
+      type: Number,
+    },
+    lng: {
+      type: Number,
+    },
+  },
+});
+
+const Business = mongoose.model("Business", businessSchema);
+
+module.exports = Business;
