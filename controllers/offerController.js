@@ -6,17 +6,6 @@ const Car = require("./../models/items/carModel");
 const Scooter = require("./../models/items/scooterModel");
 const Motorcycle = require("./../models/items/motorcycleModel");
 
-exports.getAllOffers = catchAsync(async (req, res, next) => {
-  const allOffers = await Offer.find();
-  if (!allOffers) {
-    next(new AppError("No offer found with this ID", 404));
-  }
-  res.status(200).json({
-    status: "success",
-    data: allOffers,
-  });
-});
-
 modelFactory = (category) => {
   switch (category) {
     case "Accessory":
@@ -31,6 +20,28 @@ modelFactory = (category) => {
       break;
   }
 };
+
+exports.getAllOffers = catchAsync(async (req, res, next) => {
+  const allOffers = await Offer.find();
+  if (!allOffers) {
+    return next(new AppError("No offer found", 404));
+  }
+  res.status(200).json({
+    status: "success",
+    data: allOffers,
+  });
+});
+
+exports.getOneOffer = catchAsync(async (req, res, next) => {
+  const offer = await Offer.findById(req.params.offerId);
+  if (!offer) {
+    return next(new AppError("No offer found", 404));
+  }
+  res.status(200).json({
+    status: "success",
+    data: offer,
+  });
+});
 
 exports.addOffer = catchAsync(async (req, res, next) => {
   const { offer, product_details } = req.body;
@@ -61,7 +72,7 @@ exports.updateOffer = catchAsync(async (req, res, next) => {
     }
   );
   if (!updatedOffer) {
-    next(new AppError("No offer found with this ID", 404));
+    return next(new AppError("No offer found with this ID", 404));
   }
   const updatedProduct = await modelFactory(offer.category).findByIdAndUpdate(
     updatedOffer.product._id,
@@ -80,7 +91,7 @@ exports.deleteOffer = catchAsync(async (req, res, next) => {
   const offerId = req.params.offerId;
   const offer = await Offer.findOne({ _id: offerId });
   if (!offer) {
-    next(new AppError("No offer found with that ID", 404));
+    return next(new AppError("No offer found with that ID", 404));
   }
   const deletedProduct = await modelFactory(offer.category).findOneAndDelete({
     _id: offer.product._id,
