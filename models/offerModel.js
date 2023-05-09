@@ -70,19 +70,20 @@ const offerSchema = mongoose.Schema(
     type: mongoose.Types.ObjectId,
     ref: "User",
   },*/
-    created_at: {
-      type: Date,
-      default: Date.now(),
-    },
+    isDeleted: { type: Boolean, defaults: false },
   },
   {
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
+    timestamps: true,
   }
 );
 
 offerSchema.pre(/^find/, function (next) {
   this.populate("product");
+  next();
+});
+
+offerSchema.pre("save", async function (next) {
+  await this.populate("product");
   next();
 });
 

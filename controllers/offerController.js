@@ -8,6 +8,9 @@ const Motorcycle = require("./../models/items/motorcycleModel");
 
 exports.getAllOffers = catchAsync(async (req, res, next) => {
   const allOffers = await Offer.find();
+  if (!allOffers) {
+    next(new AppError("No offer found with this ID", 404));
+  }
   res.status(200).json({
     status: "success",
     data: allOffers,
@@ -48,19 +51,44 @@ exports.addOffer = catchAsync(async (req, res, next) => {
 exports.updateOffer = catchAsync(async (req, res, next) => {
   const { offer, product_details } = req.body;
   const offerId = req.params.offerId;
-  const updatedOffer = await Offer.findByIdAndUpdate(offerId, {
-    ...offer,
-  });
+  const updatedOffer = await Offer.findByIdAndUpdate(
+    offerId,
+    {
+      ...offer,
+    },
+    {
+      new: true,
+    }
+  );
+  if (!updatedOffer) {
+    next(new AppError("No offer found with this ID", 404));
+  }
   const updatedProduct = await modelFactory(offer.category).findByIdAndUpdate(
     updatedOffer.product._id,
     {
       ...product_details,
-    },
-    { new: true }
+    }
   );
   await updatedOffer.populate("product");
   res.status(200).json({
     status: "success",
     data: updatedOffer,
+  });
+});
+
+exports.deleteOffer = catchAsync(async (req, res, next) => {
+  const offerId = req.params.offerId;
+  const offer = await Offer.findOne({ _id: offerId });
+  if (!offer) {
+    next(new AppError("No offer found with that ID", 404));
+  }
+  const deletedProduct = await modelFactory(offer.category).findOneAndDelete({
+    _id: offer.product._id,
+  });
+  const deletedOffer = await Offer.findByIdAndDelete(offerId);
+
+  res.status(200).json({
+    status: "success",
+    data: null,
   });
 });
