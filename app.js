@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const glabalErrorHandler = require("./controllers/errorController");
 const offerRoute = require("./routes/offerRoute");
+const businessRoute = require("./routes/businessRoute");
 
 const app = express();
 
@@ -10,6 +11,7 @@ app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 
 app.use("/offer", offerRoute);
+app.use("/business", businessRoute);
 
 app.use(glabalErrorHandler);
 module.exports = app;
