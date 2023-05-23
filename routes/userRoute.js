@@ -6,10 +6,11 @@ const {
   login,
   logout,
   isLoggedIn,
+  protect,
 } = require("./../controllers/authController");
 const router = express.Router();
 
-router.route("/").get(isLoggedIn, getAllUsers).post(signUp);
+router.route("/").get(protect, getAllUsers).post(signUp);
 router.route("/login").post(login);
 router.route("/logout").get(logout);
 
