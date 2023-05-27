@@ -40,6 +40,11 @@ const businessSchema = mongoose.Schema({
   },
 });
 
+businessSchema.pre(/^find/, function (next) {
+  this.populate("userId");
+  next();
+});
+
 const Business = mongoose.model("Business", businessSchema);
 
 module.exports = Business;

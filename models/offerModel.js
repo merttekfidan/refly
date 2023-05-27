@@ -84,6 +84,7 @@ const offerSchema = mongoose.Schema(
 
 offerSchema.pre(/^find/, function (next) {
   this.populate("product");
+  this.populate("userId");
   next();
 });
 
