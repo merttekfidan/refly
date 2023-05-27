@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const User = require("./userModel");
 const businessSchema = mongoose.Schema({
   title: {
     type: String,
@@ -33,6 +33,10 @@ const businessSchema = mongoose.Schema({
     lng: {
       type: Number,
     },
+  },
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
 });
 

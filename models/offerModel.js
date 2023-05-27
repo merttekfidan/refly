@@ -65,6 +65,10 @@ const offerSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       refPath: "category",
     },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
     //After activating this, don't forget changing default value in offerController
     /*created_by: {
     type: mongoose.Types.ObjectId,
@@ -72,6 +76,7 @@ const offerSchema = mongoose.Schema(
   },*/
     isDeleted: { type: Boolean, defaults: false },
   },
+
   {
     timestamps: true,
   }
