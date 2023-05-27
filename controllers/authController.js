@@ -65,7 +65,7 @@ exports.protect = catchAsync(async (req, res, next) => {
       } else {
         const user = await User.findById(decodedToken.id);
         req.user = user;
-        console.log(req.user);
+        req.body.user = user;
         return next();
       }
     });
@@ -73,3 +73,14 @@ exports.protect = catchAsync(async (req, res, next) => {
     return next(new AppError("You are not logged in", 403));
   }
 });
+
+exports.restrictTo = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You do not have permission to perform this action", 403)
+      );
+    }
+    next();
+  };
+};

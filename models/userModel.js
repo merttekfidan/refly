@@ -21,6 +21,11 @@ const userSchema = mongoose.Schema({
     minLenght: [5, "Password must be more than 5 characters"],
     select: false,
   },
+  role: {
+    type: String,
+    enum: ["admin", "user", "service"],
+    default: "user",
+  },
 });
 
 userSchema.pre("save", async function (next) {
