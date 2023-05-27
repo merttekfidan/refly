@@ -36,23 +36,23 @@ const offerSchema = mongoose.Schema(
     availability: {
       type: [String],
       enum: [
-        "Uber",
-        "Uber Eats",
-        "Bolt",
-        "Bolt Food",
-        "Glovo",
-        "Pyszne",
-        "Wolt",
+        "uber",
+        "uber-eats",
+        "bolt",
+        "bolt-food",
+        "glovo",
+        "pyszne",
+        "bolt",
       ],
     },
     offer_status: {
       type: String,
-      enum: ["Pending Review", "Published", "Ended", "Removed"],
-      default: "Pending Review",
+      enum: ["pending-review", "published", "ended", "removed"],
+      default: "pending-review",
     },
     offer_type: {
       type: String,
-      enum: ["Buy", "Sell", "Rental"],
+      enum: ["buy", "sell", "rental"],
     },
     offer_end_date: {
       type: Date,

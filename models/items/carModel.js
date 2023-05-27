@@ -23,11 +23,11 @@ const carSchema = mongoose.Schema({
   },
   transmission: {
     type: String,
-    enum: ["Manual", "Automatic", "Tiptronic"],
+    enum: ["manual", "automatic", "tiptronic"],
   },
   fuel_type: {
     type: String,
-    enum: ["Benzin", "Diesel", "LPG", "Electric", "Hybrid"],
+    enum: ["benzin", "diesel", "lpg", "electric", "hybrid"],
   },
   engine_size: {
     type: Number,

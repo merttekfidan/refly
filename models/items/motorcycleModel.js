@@ -4,11 +4,11 @@ const Offer = require("./../offerModel");
 const motorcycleSchema = new mongoose.Schema({
   transmission: {
     type: String,
-    enum: ["Manual", "Automatic"],
+    enum: ["manual", "automatic"],
   },
   fuel_type: {
     type: String,
-    enum: ["Benzin", "Electric"],
+    enum: ["benzin", "electric"],
   },
   year: {
     type: Number,
