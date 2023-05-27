@@ -52,6 +52,7 @@ exports.addOffer = catchAsync(async (req, res, next) => {
     ...offer,
     product: newProduct._id,
     category: offer.category,
+    userId: req.user._id,
   });
   res.status(200).json({
     status: "success",
