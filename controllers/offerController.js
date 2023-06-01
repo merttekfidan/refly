@@ -63,8 +63,13 @@ exports.addOffer = catchAsync(async (req, res, next) => {
 exports.updateOffer = catchAsync(async (req, res, next) => {
   const { offer, product_details } = req.body;
   const offerId = req.params.offerId;
-  const updatedOffer = await Offer.findByIdAndUpdate(
-    offerId,
+  let query = { _id: offerId };
+  // Checks roles already. Admin has all permissions
+  if (!req.user.role.includes("admin")) {
+    query = { userId: req.user._id, _id: offerId };
+  }
+  const updatedOffer = await Offer.findOneAndUpdate(
+    query,
     {
       ...offer,
     },
@@ -72,6 +77,7 @@ exports.updateOffer = catchAsync(async (req, res, next) => {
       new: true,
     }
   );
+  console.log(updatedOffer);
   if (!updatedOffer) {
     return next(new AppError("No offer found with this ID", 404));
   }
@@ -90,7 +96,12 @@ exports.updateOffer = catchAsync(async (req, res, next) => {
 
 exports.deleteOffer = catchAsync(async (req, res, next) => {
   const offerId = req.params.offerId;
-  const offer = await Offer.findOne({ _id: offerId });
+  let query = { _id: offerId };
+  // Checks roles already. Admin has all permissions
+  if (!req.user.role.includes("admin")) {
+    query = { userId: req.user._id, _id: offerId };
+  }
+  const offer = await Offer.findOne(query);
   if (!offer) {
     return next(new AppError("No offer found with that ID", 404));
   }

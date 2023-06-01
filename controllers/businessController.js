@@ -32,11 +32,15 @@ exports.addBusiness = catchAsync(async (req, res, next) => {
 });
 exports.updateBusiness = catchAsync(async (req, res, next) => {
   const businessId = req.params.businessId;
-  const updatedBusiness = await Business.findByIdAndUpdate(
-    businessId,
-    req.body,
-    { new: true }
-  );
+  let query = { _id: businessId };
+  // Checks roles already. Admin has all permissions
+  if (!req.user.role.includes("admin")) {
+    query = { userId: req.user._id, _id: businessId };
+  }
+
+  const updatedBusiness = await Business.findOneAndUpdate(query, req.body, {
+    new: true,
+  });
   if (!updatedBusiness) {
     return next(new AppError("No business found with this ID", 404));
   }
@@ -47,7 +51,13 @@ exports.updateBusiness = catchAsync(async (req, res, next) => {
 });
 exports.deleteBusiness = catchAsync(async (req, res, next) => {
   const businessId = req.params.businessId;
-  const deletedBusiness = await Business.findByIdAndDelete(businessId);
+  let query = { _id: businessId };
+  // Checks roles already. Admin has all permissions
+  if (!req.user.role.includes("admin")) {
+    query = { userId: req.user._id, _id: businessId };
+  }
+
+  const deletedBusiness = await Business.findOneAndDelete(query);
   if (!deletedBusiness) {
     return next(new AppError("No business found with this ID", 404));
   }
