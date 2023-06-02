@@ -72,6 +72,7 @@ exports.updateOffer = catchAsync(async (req, res, next) => {
     query,
     {
       ...offer,
+      offer_status: "pending-review",
     },
     {
       new: true,
