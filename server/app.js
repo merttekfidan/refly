@@ -8,7 +8,12 @@ const userRoute = require("./routes/userRoute");
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000", // Replace with your React app's origin
+    credentials: true, // Enable sending cookies
+  })
+);
 app.use(cookieParser());
 app.use(express.json({ limit: "10kb" }));
 app.use(express.urlencoded({ extended: true, limit: "10kb" }));
