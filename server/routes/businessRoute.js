@@ -1,6 +1,7 @@
 const express = require("express");
 const {
   getAllBusinesses,
+  getMyBusinesses,
   getOneBusiness,
   addBusiness,
   updateBusiness,
@@ -17,6 +18,7 @@ router
   .route("/")
   .get(getAllBusinesses)
   .post(protect, restrictTo("admin", "service"), addBusiness);
+router.route("/myBusiness").get(protect, getMyBusinesses);
 router
   .route("/:businessId")
   .get(getOneBusiness)

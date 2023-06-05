@@ -19,6 +19,15 @@ exports.getOneBusiness = catchAsync(async (req, res, next) => {
     data: business,
   });
 });
+
+exports.getMyBusinesses = catchAsync(async (req, res, next) => {
+  const myBusinesses = await Business.find({ userId: req.user._id });
+  res.status(200).json({
+    status: "success",
+    data: myBusinesses,
+  });
+});
+
 exports.addBusiness = catchAsync(async (req, res, next) => {
   console.log("user:", req.user);
   const newBusiness = await Business.create({
