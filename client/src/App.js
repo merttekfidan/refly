@@ -1,23 +1,19 @@
-import { Routes, Route } from "react-router-dom";
-import Header from "./Layouts/Header";
-import Login from "./Pages/Login";
-import Signup from "./Pages/Signup";
-import Business from "./Components/Business";
-import React from "react";
+import Navbar from "./Components/Navbar";
+import Banner from "./Components/Banner";
+import Categories from "./Components/Categories";
+import Offers from "./Components/Offers";
 function App() {
   return (
-    <React.Fragment>
+    <>
       <header>
-        <Header />
+        <Navbar />
       </header>
       <main>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/login" element={<Signup />} />
-        </Routes>
-        <Business />
+        <Banner />
+        <Categories />
+        <Offers />
       </main>
-    </React.Fragment>
+    </>
   );
 }
 
