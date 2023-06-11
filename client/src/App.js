@@ -1,18 +1,13 @@
-import Navbar from "./Components/Navbar";
-import Banner from "./Components/Banner";
-import Categories from "./Components/Categories";
-import Offers from "./Components/Offers";
+import Home from "./Pages/Home";
+import HeaderMain from "./Layout/Header/HeaderMain";
+import FooterMain from "./Layout/Footer/FooterMain";
+
 function App() {
   return (
     <>
-      <header>
-        <Navbar />
-      </header>
-      <main>
-        <Banner />
-        <Categories />
-        <Offers />
-      </main>
+      <HeaderMain />
+      <Home />
+      <FooterMain />
     </>
   );
 }
