@@ -7,46 +7,22 @@ function FooterMain() {
             <div className="col-lg-4">
               <ul className="social-profile social-profile-styled">
                 <li>
-                  <a
-                    href="#"
-                    className="facebook-bg"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Facebook"
-                  >
+                  <a href="#" className="facebook-bg" title="Facebook">
                     <i className="lab la-facebook-f"></i>
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="twitter-bg"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Twitter"
-                  >
+                  <a href="#" className="twitter-bg" title="Twitter">
                     <i className="lab la-twitter"></i>
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="instagram-bg"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Instagram"
-                  >
+                  <a href="#" className="instagram-bg" title="Instagram">
                     <i className="lab la-instagram"></i>
                   </a>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="youtube-bg"
-                    data-toggle="tooltip"
-                    data-placement="top"
-                    title="Youtube"
-                  >
+                  <a href="#" className="youtube-bg" title="Youtube">
                     <i className="lab la-youtube"></i>
                   </a>
                 </li>

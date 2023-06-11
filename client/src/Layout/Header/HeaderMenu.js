@@ -17,17 +17,10 @@ function HeaderMenu() {
                     <a
                       href="add-listing.html"
                       className="btn-gray add-listing-btn-show font-size-24 mr-2 flex-shrink-0"
-                      data-toggle="tooltip"
-                      data-placement="left"
                       title="Add Listing"
                     >
                       <i className="la la-plus"></i>
                     </a>
-                    <div className="menu-toggle">
-                      <span className="menu__bar"></span>
-                      <span className="menu__bar"></span>
-                      <span className="menu__bar"></span>
-                    </div>
                   </div>
                 </div>
                 <div className="main-menu-content main-menu-content-2">
@@ -100,12 +93,12 @@ function HeaderMenu() {
                           </li>
                           <li>
                             <a href="listing-left-sidebar.html">
-                              listing left sidebar{" "}
+                              listing left sidebar
                             </a>
                           </li>
                           <li>
                             <a href="listing-right-sidebar.html">
-                              listing right sidebar{" "}
+                              listing right sidebar
                             </a>
                           </li>
                           <li>

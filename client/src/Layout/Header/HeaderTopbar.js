@@ -6,18 +6,18 @@ function HeaderTopbar() {
           <div className="row">
             <div className="col-lg-6 d-flex align-items-center header-top-info font-size-14 font-weight-medium">
               <p className="login-and-signup-wrap">
-                <a href="#" data-toggle="modal" data-target="#loginModal">
+                <a href="#">
                   <span className="mr-1 la la-sign-in"></span>Login
                 </a>
                 <span className="or-text px-2">or</span>
-                <a href="#" data-toggle="modal" data-target="#signUpModal">
+                <a href="#">
                   <span className="mr-1 la la-user-plus"></span>Sign Up
                 </a>
               </p>
             </div>
             <div className="col-lg-6 d-flex align-items-center justify-content-end header-top-info">
               <span className="mr-2 text-white font-weight-semi-bold font-size-14">
-                Follow Listhub on:
+                Follow Refly on:
               </span>
               <ul className="social-profile social-profile-colored">
                 <li>

@@ -56,7 +56,6 @@ function CategoriesBar() {
           </div>
         </div>
       </div>
-      {/* <!-- end highlighted-categories -->*/}
     </>
   );
 }

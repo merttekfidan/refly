@@ -7,7 +7,6 @@ function Home() {
     <>
       <section className="hero-wrapper hero-bg-4 pb-0">
         <div className="overlay opacity-9"></div>
-        {/* <!-- end overlay -->*/}
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
@@ -31,25 +30,14 @@ function Home() {
                   </a>
                 </div>
               </div>
-              {/* <!-- end hero-heading -->*/}
             </div>
             <div className="col-lg-5 ml-auto">
               <MainSearch />
             </div>
           </div>
-          {/* <!-- end row -->*/}
         </div>
-        {/* <!-- end container -->*/}
         <CategoriesBar />
       </section>
-      {/* <!-- end hero-wrapper -->*/}
-      {/* <!-- ================================
-            END HERO-WRAPPER AREA
-        ================================= -->*/}
-
-      {/* <!-- ================================
-            START CARD AREA
-        ================================= -->*/}
       <section className="card-area section-padding">
         <div className="container-fluid padding-right-50px padding-left-50px">
           <div className="row">
@@ -67,11 +55,8 @@ function Home() {
                   tortors.
                 </p>
               </div>
-              {/* <!-- end section-heading -->*/}
             </div>
-            {/* <!-- end col-lg-12 -->*/}
           </div>
-          {/* <!-- end row -->*/}
           <div className="row padding-top-60px">
             <div className="col-lg-12">
               <div className="card-carousel-2 owl-trigger-action">
@@ -85,12 +70,7 @@ function Home() {
                       />
                       <span className="badge">now open</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -160,7 +140,6 @@ function Home() {
                     </ul>
                   </div>
                 </div>
-                {/* <!-- end card-item -->*/}
                 <div className="card-item border border-color">
                   <div className="card-image">
                     <a href="listing-details.html" className="d-block">
@@ -237,7 +216,6 @@ function Home() {
                     </ul>
                   </div>
                 </div>
-                {/* <!-- end card-item -->*/}
                 <div className="card-item border border-color">
                   <div className="card-image">
                     <a href="listing-details.html" className="d-block">
@@ -313,7 +291,6 @@ function Home() {
                     </ul>
                   </div>
                 </div>
-                {/* <!-- end card-item -->*/}
                 <div className="card-item border border-color">
                   <div className="card-image">
                     <a href="listing-details.html" className="d-block">
@@ -397,7 +374,6 @@ function Home() {
                     </ul>
                   </div>
                 </div>
-                {/* <!-- end card-item -->*/}
                 <div className="card-item border border-color">
                   <div className="card-image">
                     <a href="listing-details.html" className="d-block">
@@ -478,7 +454,6 @@ function Home() {
                     </ul>
                   </div>
                 </div>
-                {/* <!-- end card-item -->*/}
                 <div className="card-item border border-color">
                   <div className="card-image">
                     <a href="listing-details.html" className="d-block">
@@ -554,29 +529,17 @@ function Home() {
                     </ul>
                   </div>
                 </div>
-                {/* <!-- end card-item -->*/}
               </div>
-              {/* <!-- end card-carousel -->*/}
             </div>
-            {/* <!-- end col-lg-12 -->*/}
           </div>
-          {/* <!-- end row -->*/}
         </div>
-        {/* <!-- end container-fluid -->*/}
       </section>
-      {/* <!-- end card-area -->*/}
-      {/* <!-- ================================
-            END CARD AREA
-        ================================= -->*/}
 
       <div className="section-block"></div>
 
       <HowToSection />
       <ArticlesSection />
 
-      {/* <!-- ================================
-            START CTA AREA
-        ================================= -->*/}
       <section className="cta-area cta-bg bg-fixed section-padding text-center">
         <div className="overlay opacity-9"></div>
         <div className="container">
@@ -598,25 +561,15 @@ function Home() {
                     Quickly maximize timely deliverables for real-time schemas.
                   </p>
                 </div>
-                {/* <!-- end section-heading -->*/}
                 <div className="btn-box pt-4">
-                  <a
-                    href="#"
-                    className="theme-btn gradient-btn"
-                    data-toggle="modal"
-                    data-target="#signUpModal"
-                  >
+                  <a href="#" className="theme-btn gradient-btn">
                     <i className="la la-user-plus mr-2"></i>Click Me to Start
                   </a>
                 </div>
-                {/* <!-- end btn-box -->*/}
               </div>
             </div>
-            {/* <!-- end col-lg-12 -->*/}
           </div>
-          {/* <!-- end row -->*/}
         </div>
-        {/* <!-- end container -->*/}
       </section>
     </>
   );

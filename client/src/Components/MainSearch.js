@@ -17,7 +17,6 @@ function MainSearch() {
             </div>
           </form>
         </div>
-        {/* <!-- end main-search-input-item -->*/}
         <div className="main-search-input-item user-chosen-select-container w-100 mb-3 ml-0">
           <label className="label-text">Where to look?</label>
           <select className="user-chosen-select">
@@ -263,7 +262,6 @@ function MainSearch() {
             <option value="ZW">Zimbabwe</option>
           </select>
         </div>
-        {/* <!-- end main-search-input-item -->*/}
         <div className="main-search-input-item user-chosen-select-container w-100 mb-3 ml-0">
           <label className="label-text">What Category?</label>
           <select className="user-chosen-select">
@@ -278,7 +276,6 @@ function MainSearch() {
             <option value="8">Business</option>
           </select>
         </div>
-        {/* <!-- end main-search-input-item -->*/}
         <div className="main-search-input-item w-100 ml-0">
           <label className="label-text">Search Activities</label>
           <button
@@ -288,7 +285,6 @@ function MainSearch() {
             <i className="la la-search mr-2"></i>Search Now
           </button>
         </div>
-        {/* <!-- end main-search-input-item -->*/}
       </div>
     </>
   );

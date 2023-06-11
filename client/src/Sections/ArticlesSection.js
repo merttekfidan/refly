@@ -10,7 +10,7 @@ function ArticlesSection() {
                   <span className="ribbon ribbon-lg">From Our Blog</span>
                 </div>
                 <h2 className="sec__title">
-                  Articles You Might{" "}
+                  Articles You Might
                   <span className="text-color-16">Like.</span>
                 </h2>
                 <p className="sec__desc">
@@ -19,11 +19,8 @@ function ArticlesSection() {
                   tortors.
                 </p>
               </div>
-              {/* <!-- end section-heading -->*/}
             </div>
-            {/* <!-- end col-lg-12 -->*/}
           </div>
-          {/* <!-- end row -->*/}
           <div className="row padding-top-60px">
             <div className="col-lg-8">
               <div className="card-item card-item-layout-5 js-tilt">
@@ -36,7 +33,6 @@ function ArticlesSection() {
                   />
                   <span className="badge">July 3, 2020</span>
                 </div>
-                {/* <!-- end card-image -->*/}
                 <div className="card-content">
                   <ul className="listing-meta d-flex align-items-center pt-0">
                     <li>
@@ -55,37 +51,19 @@ function ArticlesSection() {
                     </a>
                   </h4>
                   <div className="avatar-photos pt-4">
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Alex Smith"
-                    >
+                    <a href="#" className="user-thumb" title="Alex Smith">
                       <img
                         src="theme/assets/images/avatar-img.jpg"
                         alt="Avatar image"
                       />
                     </a>
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="John Doe"
-                    >
+                    <a href="#" className="user-thumb" title="John Doe">
                       <img
                         src="theme/assets/images/avatar-img2.jpg"
                         alt="Avatar image"
                       />
                     </a>
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Aron Finch"
-                    >
+                    <a href="#" className="user-thumb" title="Aron Finch">
                       <img
                         src="theme/assets/images/avatar-img3.jpg"
                         alt="Avatar image"
@@ -93,11 +71,8 @@ function ArticlesSection() {
                     </a>
                   </div>
                 </div>
-                {/* <!-- end card-content -->*/}
               </div>
-              {/* <!-- end card-item -->*/}
             </div>
-            {/* <!-- end col-lg-8 -->*/}
             <div className="col-lg-4 responsive-column">
               <div className="card-item card-item-layout-5 js-tilt">
                 <div className="card-image">
@@ -109,7 +84,6 @@ function ArticlesSection() {
                   />
                   <span className="badge">June 25, 2020</span>
                 </div>
-                {/* <!-- end card-image -->*/}
                 <div className="card-content">
                   <ul className="listing-meta d-flex align-items-center pt-0">
                     <li>
@@ -126,25 +100,13 @@ function ArticlesSection() {
                     <a href="blog-single.html">Rocko Band in Marquee Club</a>
                   </h4>
                   <div className="avatar-photos pt-4">
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Kamran Adi"
-                    >
+                    <a href="#" className="user-thumb" title="Kamran Adi">
                       <img
                         src="theme/assets/images/avatar-img4.jpg"
                         alt="Avatar image"
                       />
                     </a>
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Wes Boss"
-                    >
+                    <a href="#" className="user-thumb" title="Wes Boss">
                       <img
                         src="theme/assets/images/avatar-img5.jpg"
                         alt="Avatar image"
@@ -152,11 +114,8 @@ function ArticlesSection() {
                     </a>
                   </div>
                 </div>
-                {/* <!-- end card-content -->*/}
               </div>
-              {/* <!-- end card-item -->*/}
             </div>
-            {/* <!-- end col-lg-4 -->*/}
             <div className="col-lg-4 responsive-column">
               <div className="card-item card-item-layout-5 js-tilt">
                 <div className="card-image">
@@ -168,7 +127,6 @@ function ArticlesSection() {
                   />
                   <span className="badge">May 12, 2020</span>
                 </div>
-                {/* <!-- end card-image -->*/}
                 <div className="card-content">
                   <ul className="listing-meta d-flex align-items-center pt-0">
                     <li>
@@ -187,37 +145,19 @@ function ArticlesSection() {
                     </a>
                   </h4>
                   <div className="avatar-photos pt-4">
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Alex Smith"
-                    >
+                    <a href="#" className="user-thumb" title="Alex Smith">
                       <img
                         src="theme/assets/images/avatar-img.jpg"
                         alt="Avatar image"
                       />
                     </a>
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="John Doe"
-                    >
+                    <a href="#" className="user-thumb" title="John Doe">
                       <img
                         src="theme/assets/images/avatar-img2.jpg"
                         alt="Avatar image"
                       />
                     </a>
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Aron Finch"
-                    >
+                    <a href="#" className="user-thumb" title="Aron Finch">
                       <img
                         src="theme/assets/images/avatar-img3.jpg"
                         alt="Avatar image"
@@ -225,11 +165,8 @@ function ArticlesSection() {
                     </a>
                   </div>
                 </div>
-                {/* <!-- end card-content -->*/}
               </div>
-              {/* <!-- end card-item -->*/}
             </div>
-            {/* <!-- end col-lg-4 -->*/}
             <div className="col-lg-4 responsive-column">
               <div className="card-item card-item-layout-5 js-tilt">
                 <div className="card-image">
@@ -241,7 +178,6 @@ function ArticlesSection() {
                   />
                   <span className="badge">April 22, 2020</span>
                 </div>
-                {/* <!-- end card-image -->*/}
                 <div className="card-content">
                   <ul className="listing-meta d-flex align-items-center pt-0">
                     <li>
@@ -261,25 +197,13 @@ function ArticlesSection() {
                     </a>
                   </h4>
                   <div className="avatar-photos pt-4">
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Alex Smith"
-                    >
+                    <a href="#" className="user-thumb" title="Alex Smith">
                       <img
                         src="theme/assets/images/avatar-img.jpg"
                         alt="Avatar image"
                       />
                     </a>
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="John Doe"
-                    >
+                    <a href="#" className="user-thumb" title="John Doe">
                       <img
                         src="theme/assets/images/avatar-img2.jpg"
                         alt="Avatar image"
@@ -287,11 +211,8 @@ function ArticlesSection() {
                     </a>
                   </div>
                 </div>
-                {/* <!-- end card-content -->*/}
               </div>
-              {/* <!-- end card-item -->*/}
             </div>
-            {/* <!-- end col-lg-4 -->*/}
             <div className="col-lg-4 responsive-column">
               <div className="card-item card-item-layout-5 js-tilt">
                 <div className="card-image">
@@ -303,7 +224,6 @@ function ArticlesSection() {
                   />
                   <span className="badge">March 15, 2020</span>
                 </div>
-                {/* <!-- end card-image -->*/}
                 <div className="card-content">
                   <ul className="listing-meta d-flex align-items-center pt-0">
                     <li>
@@ -322,25 +242,13 @@ function ArticlesSection() {
                     </a>
                   </h4>
                   <div className="avatar-photos pt-4">
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Alex Smith"
-                    >
+                    <a href="#" className="user-thumb" title="Alex Smith">
                       <img
                         src="theme/assets/images/avatar-img.jpg"
                         alt="Avatar image"
                       />
                     </a>
-                    <a
-                      href="#"
-                      className="user-thumb"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="John Doe"
-                    >
+                    <a href="#" className="user-thumb" title="John Doe">
                       <img
                         src="theme/assets/images/avatar-img2.jpg"
                         alt="Avatar image"
@@ -348,13 +256,9 @@ function ArticlesSection() {
                     </a>
                   </div>
                 </div>
-                {/* <!-- end card-content -->*/}
               </div>
-              {/* <!-- end card-item -->*/}
             </div>
-            {/* <!-- end col-lg-4 -->*/}
           </div>
-          {/* <!-- end row -->*/}
           <div className="more-btn-box d-flex flex-wrap align-items-center justify-content-between pt-4">
             <div>
               <h4 className="pb-2 font-weight-semi-bold">Stay in the loop.</h4>
@@ -367,9 +271,7 @@ function ArticlesSection() {
             </a>
           </div>
         </div>
-        {/* <!-- end container -->*/}
       </section>
-      {/* <!-- end blog-area -->*/}
     </>
   );
 }
