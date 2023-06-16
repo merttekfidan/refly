@@ -26,8 +26,7 @@ function ArticlesSection() {
               <div className="card-item card-item-layout-5 js-tilt">
                 <div className="card-image">
                   <img
-                    src="theme/assets/images/img-loading.html"
-                    data-src="theme/assets/images/img26.jpg"
+                    src="theme/assets/images/img26.jpg"
                     className="card__img lazy"
                     alt="blog image"
                   />
@@ -77,8 +76,7 @@ function ArticlesSection() {
               <div className="card-item card-item-layout-5 js-tilt">
                 <div className="card-image">
                   <img
-                    src="theme/assets/images/img-loading.html"
-                    data-src="theme/assets/images/img27.jpg"
+                    src="theme/assets/images/img27.jpg"
                     className="card__img lazy"
                     alt="blog image"
                   />
@@ -120,8 +118,7 @@ function ArticlesSection() {
               <div className="card-item card-item-layout-5 js-tilt">
                 <div className="card-image">
                   <img
-                    src="theme/assets/images/img-loading.html"
-                    data-src="theme/assets/images/img28.jpg"
+                    src="theme/assets/images/img28.jpg"
                     className="card__img lazy"
                     alt="blog image"
                   />
@@ -171,8 +168,7 @@ function ArticlesSection() {
               <div className="card-item card-item-layout-5 js-tilt">
                 <div className="card-image">
                   <img
-                    src="theme/assets/images/img-loading.html"
-                    data-src="theme/assets/images/img29.jpg"
+                    src="theme/assets/images/img29.jpg"
                     className="card__img lazy"
                     alt="blog image"
                   />
@@ -217,8 +213,7 @@ function ArticlesSection() {
               <div className="card-item card-item-layout-5 js-tilt">
                 <div className="card-image">
                   <img
-                    src="theme/assets/images/img-loading.html"
-                    data-src="theme/assets/images/img30.jpg"
+                    src="theme/assets/images/img30.jpg"
                     className="card__img lazy"
                     alt="blog image"
                   />

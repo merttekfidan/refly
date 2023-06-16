@@ -9,33 +9,33 @@ function CategoriesBar() {
           <div className="hero-category-item rounded-0">
             <a href="#" className="d-block hero-cat-link rounded-0">
               <span className="icon-element bg-1 mx-auto">
-                <i className="la la-building-o"></i>
+                <i className="las la-car"></i>
               </span>
-              apartments
+              Cars
             </a>
           </div>
           <div className="hero-category-item rounded-0">
             <a href="#" className="d-block hero-cat-link rounded-0">
               <span className="icon-element bg-2 mx-auto">
-                <i className="la la-cutlery"></i>
+                <i className="las la-motorcycle"></i>
               </span>
-              Restaurants
+              Motorcycles
             </a>
           </div>
           <div className="hero-category-item rounded-0">
             <a href="#" className="d-block hero-cat-link rounded-0">
               <span className="icon-element bg-3 mx-auto">
-                <i className="la la-plane"></i>
+                <i className="las la-skiing-nordic"></i>
               </span>
-              travel
+              Scooters
             </a>
           </div>
           <div className="hero-category-item rounded-0">
             <a href="#" className="d-block hero-cat-link rounded-0">
               <span className="icon-element bg-4 mx-auto">
-                <i className="la la-music"></i>
+                <i className="las la-biking"></i>
               </span>
-              Events
+              Bicycle
             </a>
           </div>
           <div className="hero-category-item rounded-0">
@@ -43,15 +43,7 @@ function CategoriesBar() {
               <span className="icon-element bg-5 mx-auto">
                 <i className="la la-gear"></i>
               </span>
-              fitness
-            </a>
-          </div>
-          <div className="hero-category-item rounded-0">
-            <a href="#" className="d-block hero-cat-link rounded-0">
-              <span className="icon-element bg-6 mx-auto">
-                <i className="la la-hotel"></i>
-              </span>
-              Hotels
+              Accessories
             </a>
           </div>
         </div>

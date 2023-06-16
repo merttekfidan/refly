@@ -51,8 +51,8 @@ function HowToSection() {
                   >
                     <defs>
                       <linearGradient id="svg-gradient">
-                        <stop offset="5%" stop-color="#ff6b6b"></stop>
-                        <stop offset="95%" stop-color="#ffbb3d"></stop>
+                        <stop offset="5%" stopColor="#ff6b6b"></stop>
+                        <stop offset="95%" stopColor="#ffbb3d"></stop>
                       </linearGradient>
                     </defs>
                     <path d="m17 22c-2.757 0-5-2.243-5-5s2.243-5 5-5 5 2.243 5 5-2.243 5-5 5zm0-9c-2.206 0-4 1.794-4 4s1.794 4 4 4 4-1.794 4-4-1.794-4-4-4z"></path>
@@ -91,8 +91,8 @@ function HowToSection() {
                   >
                     <defs>
                       <linearGradient id="svg-gradient2">
-                        <stop offset="5%" stop-color="#ff6b6b"></stop>
-                        <stop offset="95%" stop-color="#ffbb3d"></stop>
+                        <stop offset="5%" stopColor="#ff6b6b"></stop>
+                        <stop offset="95%" stopColor="#ffbb3d"></stop>
                       </linearGradient>
                     </defs>
                     <g>
@@ -150,8 +150,8 @@ function HowToSection() {
                   >
                     <defs>
                       <linearGradient id="svg-gradient3">
-                        <stop offset="5%" stop-color="#ff6b6b"></stop>
-                        <stop offset="95%" stop-color="#ffbb3d"></stop>
+                        <stop offset="5%" stopColor="#ff6b6b"></stop>
+                        <stop offset="95%" stopColor="#ffbb3d"></stop>
                       </linearGradient>
                     </defs>
                     <g>
@@ -235,8 +235,8 @@ function HowToSection() {
                   >
                     <defs>
                       <linearGradient id="svg-gradient4">
-                        <stop offset="5%" stop-color="#ff6b6b"></stop>
-                        <stop offset="95%" stop-color="#ffbb3d"></stop>
+                        <stop offset="5%" stopColor="#ff6b6b"></stop>
+                        <stop offset="95%" stopColor="#ffbb3d"></stop>
                       </linearGradient>
                     </defs>
                     <g>

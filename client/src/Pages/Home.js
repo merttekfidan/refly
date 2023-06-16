@@ -78,8 +78,6 @@ function Home() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
                       <img
@@ -93,8 +91,6 @@ function Home() {
                       </a>
                       <i
                         className="la la-check-circle ml-1"
-                        data-toggle="tooltip"
-                        data-placement="top"
                         title="Claimed"
                       ></i>
                     </h4>
@@ -110,12 +106,7 @@ function Home() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Pricey"
-                        >
+                        <span className="price-range" title="Pricey">
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
@@ -150,12 +141,7 @@ function Home() {
                       />
                       <span className="badge bg-10">closed</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -163,8 +149,6 @@ function Home() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
                       <img
@@ -187,12 +171,7 @@ function Home() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Moderate"
-                        >
+                        <span className="price-range" title="Moderate">
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
                         </span>
@@ -226,12 +205,7 @@ function Home() {
                       />
                       <span className="badge">Now Open</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -239,8 +213,6 @@ function Home() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
                       <img
@@ -263,12 +235,7 @@ function Home() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Inexpensive"
-                        >
+                        <span className="price-range" title="Inexpensive">
                           <strong className="font-weight-medium">$</strong>
                         </span>
                       </li>
@@ -301,12 +268,7 @@ function Home() {
                       />
                       <span className="badge">now open</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -314,8 +276,6 @@ function Home() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
                       <img
@@ -327,8 +287,6 @@ function Home() {
                       <a href="listing-details.html">Sticky band party</a>
                       <i
                         className="la la-check-circle ml-1"
-                        data-toggle="tooltip"
-                        data-placement="top"
                         title="Claimed"
                       ></i>
                     </h4>
@@ -344,12 +302,7 @@ function Home() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Pricey"
-                        >
+                        <span className="price-range" title="Pricey">
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
@@ -384,12 +337,7 @@ function Home() {
                       />
                       <span className="badge bg-10">closed</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -397,8 +345,6 @@ function Home() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
                       <img
@@ -423,12 +369,7 @@ function Home() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Ultra High"
-                        >
+                        <span className="price-range" title="Ultra High">
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
@@ -464,12 +405,7 @@ function Home() {
                       />
                       <span className="badge">Now open</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -477,8 +413,6 @@ function Home() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
                       <img
@@ -501,12 +435,7 @@ function Home() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Inexpensive"
-                        >
+                        <span className="price-range" title="Inexpensive">
                           <strong className="font-weight-medium">$</strong>
                         </span>
                       </li>
