@@ -1,4 +1,17 @@
+import { useState } from "react";
+import LoginModal from "./../../Sections/LoginModal";
+import RegisterModal from "./../../Sections/RegisterModal";
+
 function HeaderTopbar() {
+  const [loginVisible, setLoginVisible] = useState(false);
+  const [registerVisible, setRegisterVisible] = useState(false);
+
+  const switchLoginVisible = () => {
+    setLoginVisible(!loginVisible);
+  };
+  const switchRegisterVisible = () => {
+    setRegisterVisible(!registerVisible);
+  };
   return (
     <>
       <div className="header-top-bar bg-dark-opacity py-2 padding-right-30px padding-left-30px">
@@ -6,11 +19,11 @@ function HeaderTopbar() {
           <div className="row">
             <div className="col-lg-6 d-flex align-items-center header-top-info font-size-14 font-weight-medium">
               <p className="login-and-signup-wrap">
-                <a href="#">
+                <a onClick={switchLoginVisible} href="#">
                   <span className="mr-1 la la-sign-in"></span>Login
                 </a>
                 <span className="or-text px-2">or</span>
-                <a href="#">
+                <a onClick={switchRegisterVisible} href="#">
                   <span className="mr-1 la la-user-plus"></span>Sign Up
                 </a>
               </p>
@@ -40,6 +53,10 @@ function HeaderTopbar() {
           </div>
         </div>
       </div>
+      {loginVisible && <LoginModal loginVisible switch={switchLoginVisible} />}
+      {registerVisible && (
+        <RegisterModal loginVisible switch={switchRegisterVisible} />
+      )}
     </>
   );
 }

@@ -1,3 +1,4 @@
+<
 function FooterMain() {
   return (
     <>
@@ -198,9 +199,7 @@ function FooterMain() {
                 <div className="footer-chosen-container user-chosen-select-container d-flex align-items-center justify-content-end">
                   <div className="mr-2">
                     <select className="user-chosen-select">
-                      <option value="1" selected>
-                        English
-                      </option>
+                      <option value="1">English</option>
                       <option value="2">Espanol</option>
                       <option value="3">Deutsch</option>
                       <option value="4">Türkçe</option>
@@ -228,9 +227,7 @@ function FooterMain() {
                       <option value="12">Spain</option>
                       <option value="13">Turkey</option>
                       <option value="14">United Kingdom</option>
-                      <option value="15" selected>
-                        United States
-                      </option>
+                      <option value="15">United States</option>
                     </select>
                   </div>
                 </div>
