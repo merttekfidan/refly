@@ -16,12 +16,13 @@ const createSendToken = (user, statusCode, req, res) => {
     maxAge,
     // Can't be modified or accessed
     httpOnly: true,
-    sameSite: "none",
-    secure: true,
+    //sameSite: "none",
+    //secure: true,
     //secure: req.secure || req.headers("x-forwarded-proto" === "https"),
   });
   // Remove the password from output
   user.password = undefined;
+  console.log("token:", token);
   res.status(statusCode).json({
     status: "success",
     token,
@@ -47,8 +48,8 @@ exports.logout = catchAsync(async (req, res, next) => {
     maxAge,
     // Can't be modified or accessed
     httpOnly: true,
-    sameSite: "none",
-    secure: true,
+    //sameSite: "none",
+    //secure: true,
     //secure: req.secure || req.headers("x-forwarded-proto" === "https"),
   });
   console.log("cookies cleared");
@@ -75,8 +76,6 @@ exports.isLoggedIn = catchAsync(async (req, res, next) => {
 
 exports.protect = catchAsync(async (req, res, next) => {
   const token = req.cookies.jwt;
-  console.log(req.cookies);
-  console.log(req.headers.cookie);
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       if (err) {
