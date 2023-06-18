@@ -26,6 +26,7 @@ function HeaderTopbar() {
                 <a onClick={switchRegisterVisible} href="#">
                   <span className="mr-1 la la-user-plus"></span>Sign Up
                 </a>
+                <a href="#">Email:</a>
               </p>
             </div>
             <div className="col-lg-6 d-flex align-items-center justify-content-end header-top-info">

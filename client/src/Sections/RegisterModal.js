@@ -1,7 +1,38 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-
+import { register, reset } from "./../redux/authSlice";
 function Register(props) {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+  const { username, email, password } = formData;
+
+  const dispatch = useDispatch();
+  const { user, isLoading, isError, isSuccess, message } = useSelector(
+    (state) => state.auth
+  );
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(e.target.name, e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const userData = {
+      username,
+      email,
+      password,
+    };
+    console.log(userData);
+    dispatch(register(userData));
+  };
   return (
     <Modal show={props.loginVisible} onHide={() => props.switch()}>
       <Modal.Body>
@@ -20,7 +51,7 @@ function Register(props) {
               </button>
             </div>
             <div className="modal-body">
-              <form method="post" className="form-box">
+              <form method="post" className="form-box" onSubmit={onSubmit}>
                 <div className="input-box">
                   <label className="label-text">Username</label>
                   <div className="form-group">
@@ -28,8 +59,9 @@ function Register(props) {
                     <input
                       className="form-control form-control-styled"
                       type="text"
-                      name="text"
+                      name="username"
                       placeholder="Username"
+                      onChange={onChange}
                     />
                   </div>
                 </div>
@@ -40,7 +72,8 @@ function Register(props) {
                     <input
                       className="form-control form-control-styled"
                       type="email"
-                      name="text"
+                      name="email"
+                      onChange={onChange}
                       placeholder="Email address"
                     />
                   </div>
@@ -52,7 +85,8 @@ function Register(props) {
                     <input
                       className="form-control form-control-styled"
                       type="text"
-                      name="text"
+                      name="password"
+                      onChange={onChange}
                       placeholder="Enter password"
                     />
                   </div>
@@ -65,7 +99,7 @@ function Register(props) {
                 <div className="input-box py-4 user-action-meta">
                   <div className="custom-checkbox">
                     <input type="checkbox" id="agreeChb" />
-                    <label for="agreeChb" className="font-size-14">
+                    <label htmlFor="agreeChb" className="font-size-14">
                       By signing up, you agree to our{" "}
                       <a href="privacy-policy.html" className="text-color-2">
                         Privacy Policy.
