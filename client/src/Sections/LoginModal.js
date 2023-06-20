@@ -1,7 +1,28 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { login } from "./../redux/authSlice";
 
 function LoginModal(props) {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const dispatch = useDispatch();
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(formData);
+  };
+  const loginHandle = async (e) => {
+    e.preventDefault();
+    dispatch(login(formData));
+    console.log(formData);
+  };
   return (
     <Modal show={props.loginVisible} onHide={() => props.switch()}>
       <Modal.Body>
@@ -18,16 +39,17 @@ function LoginModal(props) {
           </button>
         </div>
         <div className="modal-body">
-          <form method="post" className="form-box">
+          <form method="post" className="form-box" onSubmit={loginHandle}>
             <div className="input-box">
-              <label className="label-text">Username or email</label>
+              <label className="label-text">Email</label>
               <div className="form-group">
                 <span className="la la-user form-icon"></span>
                 <input
                   className="form-control form-control-styled"
                   type="text"
-                  name="text"
-                  placeholder="Username or email address"
+                  name="email"
+                  onChange={onChange}
+                  placeholder="Email address"
                 />
               </div>
             </div>
@@ -37,8 +59,9 @@ function LoginModal(props) {
                 <span className="la la-lock form-icon"></span>
                 <input
                   className="form-control form-control-styled"
-                  type="text"
-                  name="text"
+                  type="passowrd"
+                  name="password"
+                  onChange={onChange}
                   placeholder="Enter password"
                 />
               </div>
@@ -58,7 +81,11 @@ function LoginModal(props) {
               </a>
             </div>
             <div className="btn-box">
-              <button type="submit" className="theme-btn gradient-btn w-100">
+              <button
+                onClick={loginHandle}
+                type="submit"
+                className="theme-btn gradient-btn w-100"
+              >
                 <i className="la la-sign-in mr-1"></i> Login to Account
               </button>
               <p className="sub-text-box text-right pt-1 font-weight-medium font-size-14">
