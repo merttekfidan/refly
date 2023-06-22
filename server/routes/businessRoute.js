@@ -7,11 +7,7 @@ const {
   updateBusiness,
   deleteBusiness,
 } = require("./../controllers/businessController");
-const {
-  isLoggedIn,
-  protect,
-  restrictTo,
-} = require("./../controllers/authController");
+const { protect, restrictTo } = require("./../controllers/authController");
 const router = express.Router();
 
 router

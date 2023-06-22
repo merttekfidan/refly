@@ -6,11 +6,7 @@ const {
   updateOffer,
   deleteOffer,
 } = require("./../controllers/offerController");
-const {
-  isLoggedIn,
-  protect,
-  restrictTo,
-} = require("./../controllers/authController");
+const { protect, restrictTo } = require("./../controllers/authController");
 const router = express.Router();
 
 router

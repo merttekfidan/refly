@@ -10,16 +10,34 @@ const signToken = (id) => {
   });
 };
 
+const verifyHeaderToken = catchAsync(async (req) => {
+  // 1) Getting token and check if it's there
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+  if (token) {
+    jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+      if (err) {
+        console.log(err.message);
+        return next(new AppError("Invalid token", 403));
+      } else {
+        console.log(decodedToken);
+        const user = await User.findById(decodedToken.id);
+        req.user = user;
+        return next();
+      }
+    });
+  } else {
+    return next(new AppError("You are not logged in", 403));
+  }
+});
+
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
-  res.cookie("jwt", token, {
-    maxAge,
-    // Can't be modified or accessed
-    httpOnly: true,
-    //sameSite: "none",
-    //secure: true,
-    //secure: req.secure || req.headers("x-forwarded-proto" === "https"),
-  });
   // Remove the password from output
   user.password = undefined;
   console.log("token:", token);
@@ -42,49 +60,23 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, req, res);
 });
 
-exports.logout = catchAsync(async (req, res, next) => {
-  console.log("cookies:", req.cookies.jwt);
-  res.clearCookie("jwt", {
-    maxAge,
-    // Can't be modified or accessed
-    httpOnly: true,
-    //sameSite: "none",
-    //secure: true,
-    //secure: req.secure || req.headers("x-forwarded-proto" === "https"),
-  });
-  console.log("cookies cleared");
-  console.log("cookies:", req.cookies.jwt);
-  return res.status(200).json({ status: "success" });
-});
-
-exports.isLoggedIn = catchAsync(async (req, res, next) => {
-  const token = req.cookies.jwt;
-  if (token) {
-    jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
-      if (err) {
-        console.log(err.message);
-        return next(new AppError("You are not logged in", 403));
-      } else {
-        console.log(decodedToken);
-        return next();
-      }
-    });
-  } else {
-    return next(new AppError("You are not logged in", 403));
-  }
-});
-
 exports.protect = catchAsync(async (req, res, next) => {
-  const token = req.cookies.jwt;
+  let token;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer")
+  ) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+  console.log("token;", token);
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
       if (err) {
-        console.log(err.message);
-        return next(new AppError("Token isnt valid", 403));
+        return next(new AppError("Invalid token", 403));
       } else {
         const user = await User.findById(decodedToken.id);
         req.user = user;
-        next();
+        return next();
       }
     });
   } else {
