@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
@@ -15,6 +15,7 @@ function Register(props) {
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -34,7 +35,7 @@ function Register(props) {
     dispatch(register(userData));
   };
   return (
-    <Modal show={props.loginVisible} onHide={() => props.switch()}>
+    <Modal show={props.registerVisible} onHide={() => props.switch(false)}>
       <Modal.Body>
         <div className="modal-dialog modal-dialog-centered" role="document">
           <div className="modal-content">

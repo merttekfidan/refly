@@ -1,4 +1,3 @@
-import axios from "axios";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "../@@API/authService";
 const user = JSON.parse(localStorage.getItem("user"));
@@ -46,7 +45,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.isSucces = false;
+      state.isSuccess = false;
       state.isError = false;
       state.isLoading = false;
       state.message = "";

@@ -24,7 +24,7 @@ function LoginModal(props) {
     console.log(formData);
   };
   return (
-    <Modal show={props.loginVisible} onHide={() => props.switch()}>
+    <Modal show={props.loginVisible} onHide={() => props.switch(false)}>
       <Modal.Body>
         <div className="modal-header align-items-center mh-bg">
           <h5 className="modal-title" id="loginModalTitle">

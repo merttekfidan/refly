@@ -1,33 +1,55 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import LoginModal from "./../../Sections/LoginModal";
 import RegisterModal from "./../../Sections/RegisterModal";
+import { logout, reset } from "./../../redux/authSlice";
 
 function HeaderTopbar() {
   const [loginVisible, setLoginVisible] = useState(false);
   const [registerVisible, setRegisterVisible] = useState(false);
+  const dispatch = useDispatch();
+  const { user, isLoading, isSuccess, isError, message } = useSelector(
+    (state) => state.auth
+  );
 
-  const switchLoginVisible = () => {
-    setLoginVisible(!loginVisible);
+  const onLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
   };
-  const switchRegisterVisible = () => {
-    setRegisterVisible(!registerVisible);
-  };
+  useEffect(() => {
+    console.log(user);
+    if (isSuccess) {
+      setLoginVisible(false);
+      setRegisterVisible(false);
+    }
+  }, [user, isSuccess, isError, message, isLoading]);
+
   return (
     <>
       <div className="header-top-bar bg-dark-opacity py-2 padding-right-30px padding-left-30px">
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-6 d-flex align-items-center header-top-info font-size-14 font-weight-medium">
-              <p className="login-and-signup-wrap">
-                <a onClick={switchLoginVisible} href="#">
-                  <span className="mr-1 la la-sign-in"></span>Login
-                </a>
-                <span className="or-text px-2">or</span>
-                <a onClick={switchRegisterVisible} href="#">
-                  <span className="mr-1 la la-user-plus"></span>Sign Up
-                </a>
-                <a href="#">Email:</a>
-              </p>
+              {user ? (
+                <>
+                  Welcome {user.data.username}
+                  <a href="#" onClick={onLogout}>
+                    Logout
+                  </a>
+                </>
+              ) : (
+                <>
+                  <p className="login-and-signup-wrap">
+                    <a onClick={() => setLoginVisible(true)} href="#">
+                      <span className="mr-1 la la-sign-in"></span>Login
+                    </a>
+                    <span className="or-text px-2">or</span>
+                    <a onClick={() => setRegisterVisible(true)} href="#">
+                      <span className="mr-1 la la-user-plus"></span>Sign Up
+                    </a>
+                  </p>
+                </>
+              )}
             </div>
             <div className="col-lg-6 d-flex align-items-center justify-content-end header-top-info">
               <span className="mr-2 text-white font-weight-semi-bold font-size-14">
@@ -54,9 +76,9 @@ function HeaderTopbar() {
           </div>
         </div>
       </div>
-      {loginVisible && <LoginModal loginVisible switch={switchLoginVisible} />}
+      {loginVisible && <LoginModal loginVisible switch={setLoginVisible} />}
       {registerVisible && (
-        <RegisterModal loginVisible switch={switchRegisterVisible} />
+        <RegisterModal registerVisible switch={setRegisterVisible} />
       )}
     </>
   );
