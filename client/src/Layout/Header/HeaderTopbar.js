@@ -17,7 +17,6 @@ function HeaderTopbar() {
     dispatch(reset());
   };
   useEffect(() => {
-    console.log(user);
     if (isSuccess) {
       setLoginVisible(false);
       setRegisterVisible(false);
