@@ -5,6 +5,7 @@ const glabalErrorHandler = require("./controllers/errorController");
 const offerRoute = require("./routes/offerRoute");
 const businessRoute = require("./routes/businessRoute");
 const userRoute = require("./routes/userRoute");
+const offerViewsRoute = require("./routes/offerViewsRoute");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended: true, limit: "10kb" }));
 app.use("/offer", offerRoute);
 app.use("/business", businessRoute);
 app.use("/user", userRoute);
+app.use("/views/offerViews", offerViewsRoute);
 
 app.use(glabalErrorHandler);
 module.exports = app;
