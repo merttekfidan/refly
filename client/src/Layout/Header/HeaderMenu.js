@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 function HeaderMenu() {
   return (
     <>
@@ -7,12 +8,12 @@ function HeaderMenu() {
             <div className="col-lg-12">
               <div className="menu-full-width">
                 <div className="logo">
-                  <a href="index.html">
+                  <Link to="/">
                     <img
                       src="./theme/assets/images/logo-white.png"
                       alt="logo"
                     />
-                  </a>
+                  </Link>
                   <div className="d-flex align-items-center">
                     <a
                       href="add-listing.html"
@@ -284,12 +285,12 @@ function HeaderMenu() {
                   </form>
                 </div>
                 <div className="nav-right-content ml-auto">
-                  <a
-                    href="add-listing.html"
+                  <Link
+                    to="/add-listing"
                     className="theme-btn gradient-btn shadow-none add-listing-btn-hide"
                   >
                     <i className="la la-plus mr-2"></i>Add Listing
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>
