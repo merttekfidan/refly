@@ -15,13 +15,13 @@ function HeaderMenu() {
                     />
                   </Link>
                   <div className="d-flex align-items-center">
-                    <a
-                      href="add-listing.html"
+                    <Link
+                      to="/add-listing"
                       className="btn-gray add-listing-btn-show font-size-24 mr-2 flex-shrink-0"
                       title="Add Listing"
                     >
                       <i className="la la-plus"></i>
-                    </a>
+                    </Link>
                   </div>
                 </div>
                 <div className="main-menu-content main-menu-content-2">
@@ -139,7 +139,7 @@ function HeaderMenu() {
                                   <a href="top-place.html">top places </a>
                                 </li>
                                 <li>
-                                  <a href="add-listing.html">add listing </a>
+                                  <Link to="/add-listing">add listing </Link>
                                 </li>
                               </ul>
                             </li>
