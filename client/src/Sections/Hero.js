@@ -37,7 +37,7 @@ function Hero({ imageSrc }) {
           >
             <g>
               <path
-                fill-opacity="0.2"
+                fillOpacity="0.2"
                 d="M0,150 C600,100 1000,50 1200,-1.13686838e-13 C1200,6.8027294 1200,56.8027294 1200,150 L0,150 Z"
               ></path>
             </g>
