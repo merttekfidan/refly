@@ -3,6 +3,7 @@ import Hero from "./../Sections/Hero";
 import CarForm from "./../Components/ProductAttrViews/Forms/CarForm";
 import MotorcycleForm from "./../Components/ProductAttrViews/Forms/MotorcycleForm";
 
+function ListingForm() {
   const [formData, setFormData] = useState({
     offer: {
       category: "",
