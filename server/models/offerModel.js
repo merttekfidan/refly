@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Location = require("./locationModel");
 const User = require("./userModel");
 const Accessory = require("./items/accessoryModel");
 const Car = require("./items/carModel");
@@ -20,12 +21,9 @@ const offerSchema = mongoose.Schema(
       default: 0,
     },
     location: {
-      lat: {
-        type: Number,
-      },
-      lng: {
-        type: Number,
-      },
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Location",
+      required: true,
     },
     images_url: {
       type: [String],
@@ -69,11 +67,6 @@ const offerSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
-    //After activating this, don't forget changing default value in offerController
-    /*created_by: {
-    type: mongoose.Types.ObjectId,
-    ref: "User",
-  },*/
     isDeleted: { type: Boolean, defaults: false },
   },
 
@@ -85,6 +78,7 @@ const offerSchema = mongoose.Schema(
 offerSchema.pre(/^find/, function (next) {
   this.populate("product");
   this.populate("userId");
+  this.populate("location");
   next();
 });
 
