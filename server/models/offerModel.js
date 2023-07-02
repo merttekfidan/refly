@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Location = require("./locationModel");
+const { City } = require("./locationModel");
 const User = require("./userModel");
 const Accessory = require("./items/accessoryModel");
 const Car = require("./items/carModel");
@@ -22,7 +22,7 @@ const offerSchema = mongoose.Schema(
     },
     location: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Location",
+      ref: "City",
       required: true,
     },
     images_url: {

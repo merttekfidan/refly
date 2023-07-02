@@ -1,8 +1,12 @@
 const express = require("express");
-const { getLocations } = require("./../controllers/preFillController");
+const {
+  getVoivodeships,
+  getCitiesByVoivodeship,
+} = require("./../controllers/preFillController");
 
 const router = express.Router();
 
-router.get("/all-locations", getLocations);
+router.get("/all-voivodeships", getVoivodeships);
+router.get("/cities-by-voivodeship/:voivodeshipId", getCitiesByVoivodeship);
 
 module.exports = router;
