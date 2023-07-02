@@ -6,6 +6,7 @@ const offerRoute = require("./routes/offerRoute");
 const businessRoute = require("./routes/businessRoute");
 const userRoute = require("./routes/userRoute");
 const offerViewsRoute = require("./routes/offerViewsRoute");
+const preFillRoute = require("./routes/preFillRoute");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/offer", offerRoute);
 app.use("/business", businessRoute);
 app.use("/user", userRoute);
 app.use("/views/offerViews", offerViewsRoute);
+app.use("/preFill", preFillRoute);
 
 app.use(glabalErrorHandler);
 module.exports = app;
