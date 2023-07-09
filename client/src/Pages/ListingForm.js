@@ -1,9 +1,29 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  getAllVoivodeships,
+  getCitiesByVoivodeship,
+} from "./../@@API/preFillService";
 import Hero from "./../Sections/Hero";
 import CarForm from "./../Components/ProductAttrViews/Forms/CarForm";
 import MotorcycleForm from "./../Components/ProductAttrViews/Forms/MotorcycleForm";
 
 function ListingForm() {
+  const [voivodeships, setVoivodeships] = useState("");
+  const [cities, setCities] = useState("");
+  const apiToStateVoivodaships = async () => {
+    let res = await getAllVoivodeships();
+    if (res) {
+      setVoivodeships(res.data);
+      console.log(res.data);
+    }
+  };
+  const apiToStateCities = async (voivodeId) => {
+    let res = await getCitiesByVoivodeship(voivodeId);
+    if (res) {
+      setCities(res.data);
+      console.log(res.data);
+    }
+  };
   const [formData, setFormData] = useState({
     offer: {
       category: "",
@@ -17,6 +37,10 @@ function ListingForm() {
     },
     product_details: {},
   });
+
+  useEffect(() => {
+    apiToStateVoivodaships();
+  }, []);
   const [images, setImages] = useState();
   const clearProductDetails = () => {
     setFormData((prevState) => ({
@@ -31,6 +55,9 @@ function ListingForm() {
 
   const onChange = (e) => {
     const { name, type, value, checked, files } = e.target;
+    if (name === "voivodeship") {
+      return apiToStateCities(value);
+    }
 
     setFormData((prevState) => {
       if (type === "file") {
@@ -164,18 +191,46 @@ function ListingForm() {
                     </div>
                     <div className="col-lg-4">
                       <div className="input-box">
-                        <label className="label-text">Location</label>
-                        <div className="form-group">
-                          <span className="la la-map form-icon"></span>
-                          <input
-                            className="form-control"
-                            id="location"
-                            type="text"
-                            name="location"
-                            placeholder="Warsaw - Poland"
+                        <label className="label-text">Voivodeship</label>
+                        <div className="form-group user-chosen-select-container">
+                          <select
+                            className="user-chosen-select"
+                            name="voivodeship"
                             onChange={onChange}
-                            value={formData.offer.location}
-                          />
+                          >
+                            <option value="0">Select a Voivodeship</option>;
+                            {voivodeships &&
+                              voivodeships.map((e) => {
+                                return (
+                                  <option key={e._id} value={e._id}>
+                                    {e.name}
+                                  </option>
+                                );
+                              })}
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-4">
+                      <div className="input-box">
+                        <label className="label-text">Cities</label>
+                        <div className="form-group user-chosen-select-container">
+                          <select
+                            className="user-chosen-select"
+                            name="city"
+                            onChange={onChange}
+                            value={formData.offer.location._id}
+                          >
+                            <option value="0">Select a City</option>;
+                            {cities &&
+                              cities.map((e) => {
+                                return (
+                                  <option key={e._id} value={e._id}>
+                                    {e.name}
+                                  </option>
+                                );
+                              })}
+                          </select>
                         </div>
                       </div>
                     </div>
