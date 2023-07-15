@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { City } = require("./locationModel");
+const { Voivodeship } = require("./locationModel");
 const User = require("./userModel");
 const Accessory = require("./items/accessoryModel");
 const Car = require("./items/carModel");
@@ -21,9 +21,8 @@ const offerSchema = mongoose.Schema(
       default: 0,
     },
     location: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "City",
-      required: true,
+      city: String,
+      voivodeship: String,
     },
     images_url: {
       type: [String],
@@ -78,7 +77,6 @@ const offerSchema = mongoose.Schema(
 offerSchema.pre(/^find/, function (next) {
   this.populate("product");
   this.populate("userId");
-  this.populate("location");
   next();
 });
 
