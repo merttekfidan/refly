@@ -1,34 +1,28 @@
 import { useState, useEffect } from "react";
-import {
-  getAllVoivodeships,
-  getCitiesByVoivodeship,
-} from "./../@@API/preFillService";
+import { getAllVoivodeships } from "./../@@API/preFillService";
 import Hero from "./../Sections/Hero";
 import CarForm from "./../Components/ProductAttrViews/Forms/CarForm";
 import MotorcycleForm from "./../Components/ProductAttrViews/Forms/MotorcycleForm";
 
 function ListingForm() {
-  const [voivodeships, setVoivodeships] = useState("");
-  const [cities, setCities] = useState("");
+  const [location, setLocation] = useState([]);
   const apiToStateVoivodaships = async () => {
+    let locationArr = [];
     let res = await getAllVoivodeships();
     if (res) {
-      setVoivodeships(res.data);
+      setLocation(res.data);
       console.log(res.data);
-    }
-  };
-  const apiToStateCities = async (voivodeId) => {
-    let res = await getCitiesByVoivodeship(voivodeId);
-    if (res) {
-      setCities(res.data);
-      console.log(res.data);
+      console.log(locationArr);
     }
   };
   const [formData, setFormData] = useState({
     offer: {
       category: "",
       title: "",
-      location: "",
+      location: {
+        voivodeship: "",
+        city: "",
+      },
       offer_type: "",
       price: "",
       availability: [],
@@ -55,11 +49,21 @@ function ListingForm() {
 
   const onChange = (e) => {
     const { name, type, value, checked, files } = e.target;
-    if (name === "voivodeship") {
-      return apiToStateCities(value);
-    }
 
     setFormData((prevState) => {
+      if (name === "voivodeship" || name === "city") {
+        return {
+          ...prevState,
+          offer: {
+            ...prevState.offer,
+            location: {
+              ...prevState.offer.location,
+              [name]: value,
+            },
+          },
+        };
+      }
+
       if (type === "file") {
         console.log("file:", files);
         console.log("file:", URL.createObjectURL(files[0]));
@@ -197,16 +201,15 @@ function ListingForm() {
                             className="user-chosen-select"
                             name="voivodeship"
                             onChange={onChange}
+                            value={formData.offer.location.voivodeship}
                           >
-                            <option value="0">Select a Voivodeship</option>;
-                            {voivodeships &&
-                              voivodeships.map((e) => {
-                                return (
-                                  <option key={e._id} value={e._id}>
-                                    {e.name}
-                                  </option>
-                                );
-                              })}
+                            <option value="0">Select a Voivodeship</option>
+                            {location &&
+                              location.map((e) => (
+                                <option key={e._id} value={e.name}>
+                                  {e.name}
+                                </option>
+                              ))}
                           </select>
                         </div>
                       </div>
@@ -219,16 +222,20 @@ function ListingForm() {
                             className="user-chosen-select"
                             name="city"
                             onChange={onChange}
-                            value={formData.offer.location._id}
+                            value={formData.offer.location.city}
                           >
-                            <option value="0">Select a City</option>;
-                            {cities &&
-                              cities.map((e) => {
-                                return (
-                                  <option key={e._id} value={e._id}>
-                                    {e.name}
-                                  </option>
-                                );
+                            <option value="0">Select a City</option>
+                            {location &&
+                              location.map((e) => {
+                                if (
+                                  e.name === formData.offer.location.voivodeship
+                                ) {
+                                  return e.cities.map((i, key) => (
+                                    <option key={key} value={i}>
+                                      {i}
+                                    </option>
+                                  ));
+                                }
                               })}
                           </select>
                         </div>
