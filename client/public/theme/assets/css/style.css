@@ -6112,6 +6112,7 @@ div.datedropper .picker .pick-lg-b li {
   transition: all 0.3s;
   position: relative;
   width: 350px;
+  margin: 2rem 0.5rem;
 }
 .card-item .card-image {
   position: relative;
