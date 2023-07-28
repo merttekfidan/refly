@@ -1,17 +1,22 @@
+// validation.js
 import { useState } from "react";
 
-function empty(value) {
-  return !value || value.trim() === "" || value == 0;
+// Helper function to check if a value is empty
+function isEmpty(value) {
+  return !value || value.trim() === "";
 }
 
+// Helper function to check if a value is a valid number
 function isNumber(value) {
   return /^[0-9]+$/.test(value);
 }
 
-function minMax(value, min, max) {
-  return value < min || value > max;
+// Helper function to check if a value is within a specified range
+function isInRange(value, min, max) {
+  return value >= min && value <= max;
 }
 
+// Helper function to check if a URL is valid
 function isValidUrl(url) {
   try {
     new URL(url);
@@ -21,43 +26,148 @@ function isValidUrl(url) {
   }
 }
 
-let errors = {};
+// Validation schema for the form
+const validationSchema = {
+  "offer.category": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Category is required",
+    },
+  ],
+  "offer.title": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Title is required",
+    },
+    {
+      validate: (value) => value.length <= 255,
+      message: "Title should be between 0-255 characters",
+    },
+  ],
+  "offer.location.voivodeship": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Voivodeship is required",
+    },
+  ],
+  "offer.location.city": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "City is required",
+    },
+  ],
+  "offer.offer_type": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Offer Type is required",
+    },
+  ],
+  "offer.price": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Price is required",
+    },
+    {
+      validate: (value) => isNumber(value),
+      message: "Price should be a number",
+    },
+    {
+      validate: (value) => isInRange(parseInt(value, 10), 0, 999999),
+      message: "Price should be between 0-999999",
+    },
+  ],
+  "offer.images_url": [
+    {
+      validate: (value) => value && value.length <= 10,
+      message: "Cannot have more than 10 image URLs",
+    },
+    {
+      validate: (value) => !value || value.every(isValidUrl),
+      message: "Invalid image URL",
+    },
+  ],
+  "offer.description": [
+    {
+      validate: (value) => !value || value.length <= 1000,
+      message: "Description cannot be more than 1000 characters",
+    },
+  ],
+  "product_details.brand": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Brand is required",
+    },
+  ],
+  "product_details.model": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Model is required",
+    },
+    {
+      validate: (value) => value.length >= 5 && value.length <= 25,
+      message: "Model should be between 5-25 characters",
+    },
+  ],
+  "product_details.year": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Year is required",
+    },
+    {
+      validate: (value) => isNumber(value),
+      message: "Year should be a number",
+    },
+    {
+      validate: (value) => isInRange(parseInt(value, 10), 1990, 2024),
+      message: "Year should be between 1990 - 2024",
+    },
+  ],
+  "product_details.mileage": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Mileage is required",
+    },
+    {
+      validate: (value) => isNumber(value),
+      message: "Mileage should be a number",
+    },
+    {
+      validate: (value) => isInRange(parseInt(value, 10), 0, 500000),
+      message: "Mileage should be between 0 - 500000",
+    },
+  ],
+};
 
+// Helper function to check if a nested field exists in the formData
+function fieldExists(formData, fieldPath) {
+  const fieldKeys = fieldPath.split(".");
+  let currentField = formData;
+
+  for (const key of fieldKeys) {
+    if (!currentField.hasOwnProperty(key)) {
+      return false;
+    }
+    currentField = currentField[key];
+  }
+
+  return true;
+}
+
+// Generic validation function to validate the formData against the validation schema
 function listFormValidation(formData) {
-  errors = {};
-  const required = ["category", "title", "offer_type", "price"];
-  required.forEach((field) => {
-    if (empty(formData.offer[field])) {
-      errors[field] = ` is required`;
+  const errors = {};
+
+  for (const field in validationSchema) {
+    if (fieldExists(formData, field)) {
+      for (const validation of validationSchema[field]) {
+        const { validate, message } = validation;
+        const value = field.split(".").reduce((acc, key) => acc[key], formData);
+        if (!validate(value)) {
+          errors[field] = message;
+          break;
+        }
+      }
     }
-  });
-  if (empty(formData.offer.location.voivodeship)) {
-    errors["voivodeship"] = " is required";
-  }
-
-  if (empty(formData.offer.location.city)) {
-    errors["city"] = " is required";
-  }
-
-  if (minMax(formData.offer.title.length, 0, 255)) {
-    errors.title = " should be between 0-255 characters";
-  }
-
-  if (!isNumber(formData.offer.price)) {
-    errors.price = " should be a number";
-  } else {
-    const price = parseInt(formData.offer.price, 10);
-    if (minMax(price, 0, 999999)) {
-      errors.price = "Price should be between 0-999999";
-    }
-  }
-
-  if (formData.images_url && formData.images_url.length > 10) {
-    errors.images_url = "Cannot have more than 10 image URLs";
-  }
-
-  if (formData.description && formData.description.length > 1000) {
-    errors.description = " cannot be more than 1000 characters";
   }
 
   return errors;
