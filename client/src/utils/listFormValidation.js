@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // Helper function to check if a value is empty
 function isEmpty(value) {
-  return !value || value.trim() === "";
+  return !value || value.trim() === "" || value === "0";
 }
 
 // Helper function to check if a value is a valid number
@@ -134,6 +134,32 @@ const validationSchema = {
     {
       validate: (value) => isInRange(parseInt(value, 10), 0, 500000),
       message: "Mileage should be between 0 - 500000",
+    },
+  ],
+  "product_details.engine_size": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Engine size is required",
+    },
+    {
+      validate: (value) => isNumber(value),
+      message: "Engine size should be a number",
+    },
+    {
+      validate: (value) => isInRange(parseInt(value, 10), 0.5, 5),
+      message: "Engine size should be between 0.5 - 5",
+    },
+  ],
+  "product_details.transmission": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Transmission is required",
+    },
+  ],
+  "product_details.fuel_type": [
+    {
+      validate: (value) => !isEmpty(value),
+      message: "Fuel Type is required",
     },
   ],
 };
