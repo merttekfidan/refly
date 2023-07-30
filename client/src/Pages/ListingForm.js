@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { getAllVoivodeships } from "./../@@API/preFillService";
+import listFormValidation from "./../utils/listFormValidation";
+import { submitListForm } from "./../@@API/offerService";
 import Hero from "./../Sections/Hero";
 import CarForm from "./../Components/ProductAttrViews/Forms/CarForm";
 import MotorcycleForm from "./../Components/ProductAttrViews/Forms/MotorcycleForm";
 
 function ListingForm() {
   const [location, setLocation] = useState([]);
+  const [formErrors, setFormErrors] = useState({});
   const apiToStateVoivodaships = async () => {
     let locationArr = [];
     let res = await getAllVoivodeships();
@@ -15,6 +18,10 @@ function ListingForm() {
       console.log(locationArr);
     }
   };
+
+  //Initiate main state
+
+  ///////// PRODUCT DETAILS BOŞ OLDUĞU İÇİN VALİDATE EDİLMİYOR.
   const [formData, setFormData] = useState({
     offer: {
       category: "",
@@ -35,6 +42,7 @@ function ListingForm() {
   useEffect(() => {
     apiToStateVoivodaships();
   }, []);
+
   const [images, setImages] = useState();
   const clearProductDetails = () => {
     setFormData((prevState) => ({
@@ -44,7 +52,20 @@ function ListingForm() {
   };
   const onSubmit = (e) => {
     e.preventDefault();
+    const validationResult = listFormValidation(formData);
     console.log(formData);
+    console.log(validationResult);
+    if (
+      e.target.agreeChb2.checked &&
+      Object.keys(validationResult).length === 0
+    ) {
+      console.log(JSON.stringify(formData));
+      //submitListForm(formData);
+    } else {
+      console.log(validationResult);
+      setFormErrors(validationResult);
+    }
+    //listFormValidation(formData);
   };
 
   const onChange = (e) => {
@@ -65,11 +86,8 @@ function ListingForm() {
       }
 
       if (type === "file") {
-        console.log("file:", files);
-        console.log("file:", URL.createObjectURL(files[0]));
         let imageArr = [...files].map((e) => URL.createObjectURL(e));
         setImages(imageArr);
-        console.log(images);
         return {
           ...prevState,
           offer: {
@@ -94,7 +112,7 @@ function ListingForm() {
           },
         };
       }
-      // update rest of states
+      // update rest of offers
       return {
         ...prevState,
         offer: {
@@ -110,7 +128,13 @@ function ListingForm() {
       case 0:
         return "";
       case "Car":
-        return <CarForm formData={formData} setFormData={setFormData} />;
+        return (
+          <CarForm
+            formData={formData}
+            setFormData={setFormData}
+            formErrors={formErrors}
+          />
+        );
       case "Motorcycle":
         return <MotorcycleForm formData={formData} setFormData={setFormData} />;
       default:
@@ -134,7 +158,7 @@ function ListingForm() {
                 <a href="/#" className="alert-link text-color-2">
                   log in
                 </a>
-                and if you are a{" "}
+                and if you are a
                 <span className="font-weight-semi-bold">
                   New User, Continue Below
                 </span>{" "}
@@ -169,6 +193,9 @@ function ListingForm() {
                             <option value="Motorcycle">Motorcycle</option>
                           </select>
                         </div>
+                        <p className="error-message">
+                          {formErrors["offer.category"]}
+                        </p>
                       </div>
                     </div>
                     <div className="col-lg-12">
@@ -191,6 +218,9 @@ function ListingForm() {
                             value={formData.offer.title}
                           />
                         </div>
+                        <p className="error-message">
+                          {formErrors["offer.title"]}
+                        </p>
                       </div>
                     </div>
                     <div className="col-lg-4">
@@ -212,6 +242,9 @@ function ListingForm() {
                               ))}
                           </select>
                         </div>
+                        <p className="error-message">
+                          {formErrors["offer.location.voivodeship"]}
+                        </p>
                       </div>
                     </div>
                     <div className="col-lg-4">
@@ -239,6 +272,9 @@ function ListingForm() {
                               })}
                           </select>
                         </div>
+                        <p className="error-message">
+                          {formErrors["offer.location.city"]}
+                        </p>
                       </div>
                     </div>
                     <div className="col-lg-4">
@@ -257,6 +293,9 @@ function ListingForm() {
                             <option value="rental">Rental</option>
                           </select>
                         </div>
+                        <p className="error-message">
+                          {formErrors["offer.offer_type"]}
+                        </p>
                       </div>
                     </div>
                     <div className="col-lg-4">
@@ -273,6 +312,9 @@ function ListingForm() {
                             value={formData.offer.price}
                           />
                         </div>
+                        <p className="error-message">
+                          {formErrors["offer.price"]}
+                        </p>
                       </div>
                     </div>
                     <div className="col-lg-12">
@@ -370,6 +412,9 @@ function ListingForm() {
                             ""
                           )}
                         </div>
+                        <p className="error-message">
+                          {formErrors["offer.images"]}
+                        </p>
                       </div>
                     </div>
                     <div className="col-lg-12">
@@ -384,6 +429,9 @@ function ListingForm() {
                           ></textarea>
                         </div>
                       </div>
+                      <p className="error-message">
+                        {formErrors["offer.description"]}
+                      </p>
                     </div>
                     {formData.offer.category
                       ? productTypeByCategory(formData.offer.category)
@@ -393,14 +441,14 @@ function ListingForm() {
                       <div className="custom-checkbox">
                         <input type="checkbox" id="agreeChb2" />
                         <label htmlFor="agreeChb2" className="text-gray">
-                          By continuing, you agree to Listhub's{" "}
+                          By continuing, you agree to Listhub's
                           <a
                             href="terms-and-conditions.html"
                             className="text-color-2"
                           >
                             Terms of Service
-                          </a>{" "}
-                          and acknowledge our{" "}
+                          </a>
+                          and acknowledge our
                           <a
                             href="privacy-policy.html"
                             className="text-color-2"
