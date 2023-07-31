@@ -1,6 +1,3 @@
-// validation.js
-import { useState } from "react";
-
 // Helper function to check if a value is empty
 function isEmpty(value) {
   return !value || value.trim() === "" || value === "0";
