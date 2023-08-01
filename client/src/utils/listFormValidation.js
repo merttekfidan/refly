@@ -5,7 +5,7 @@ function isEmpty(value) {
 
 // Helper function to check if a value is a valid number
 function isNumber(value) {
-  return /^[0-9]+$/.test(value);
+  return !isNaN(value);
 }
 
 // Helper function to check if a value is within a specified range
@@ -69,7 +69,7 @@ const validationSchema = {
       message: "Price should be a number",
     },
     {
-      validate: (value) => isInRange(parseInt(value, 10), 0, 999999),
+      validate: (value) => isInRange(value, 0, 999999),
       message: "Price should be between 0-999999",
     },
   ],
@@ -78,14 +78,16 @@ const validationSchema = {
       validate: (value) => value && value.length <= 10,
       message: "Cannot have more than 10 image URLs",
     },
-    {
-      validate: (value) => !value || value.every(isValidUrl),
-      message: "Invalid image URL",
-    },
   ],
   "offer.description": [
     {
       validate: (value) => !value || value.length <= 1000,
+      message: "Description cannot be more than 1000 characters",
+    },
+  ],
+  "offer.concent": [
+    {
+      validate: (value) => value === "on" && value,
       message: "Description cannot be more than 1000 characters",
     },
   ],
@@ -115,7 +117,7 @@ const validationSchema = {
       message: "Year should be a number",
     },
     {
-      validate: (value) => isInRange(parseInt(value, 10), 1990, 2024),
+      validate: (value) => isInRange(value, 1990, 2024),
       message: "Year should be between 1990 - 2024",
     },
   ],
@@ -129,7 +131,7 @@ const validationSchema = {
       message: "Mileage should be a number",
     },
     {
-      validate: (value) => isInRange(parseInt(value, 10), 0, 500000),
+      validate: (value) => isInRange(value, 0, 500000),
       message: "Mileage should be between 0 - 500000",
     },
   ],
@@ -143,7 +145,7 @@ const validationSchema = {
       message: "Engine size should be a number",
     },
     {
-      validate: (value) => isInRange(parseInt(value, 10), 0.5, 5),
+      validate: (value) => isInRange(value, 0.5, 5.0),
       message: "Engine size should be between 0.5 - 5",
     },
   ],
