@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllVoivodeships } from "./../@@API/preFillService";
 import listFormValidation from "./../utils/listFormValidation";
 import { submitListForm } from "./../@@API/offerService";
@@ -7,8 +8,12 @@ import CarForm from "./../Components/ProductAttrViews/Forms/CarForm";
 import MotorcycleForm from "./../Components/ProductAttrViews/Forms/MotorcycleForm";
 
 function ListingForm() {
+  const navigate = useNavigate();
   const [location, setLocation] = useState([]);
   const [formErrors, setFormErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [images, setImages] = useState();
+
   const apiToStateVoivodaships = async () => {
     let locationArr = [];
     let res = await getAllVoivodeships();
@@ -20,57 +25,65 @@ function ListingForm() {
   };
 
   //Initiate main state
-
-  ///////// PRODUCT DETAILS BOŞ OLDUĞU İÇİN VALİDATE EDİLMİYOR.
-  const [formData, setFormData] = useState({
+  const initialFormData = {
     offer: {
-      category: "",
+      category: "0",
       title: "",
       location: {
-        voivodeship: "",
-        city: "",
+        voivodeship: "0",
+        city: "0",
       },
       offer_type: "",
       price: "",
       availability: [],
       images_url: [],
       description: "",
+      consent: false,
     },
     product_details: {},
-  });
+  };
+  const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
     apiToStateVoivodaships();
   }, []);
 
-  const [images, setImages] = useState();
+  // HELPER FUNCTIONS
   const clearProductDetails = () => {
     setFormData((prevState) => ({
       offer: { ...prevState.offer },
       product_details: "",
     }));
   };
-  const onSubmit = (e) => {
-    e.preventDefault();
-    const validationResult = listFormValidation(formData);
-    console.log(formData);
-    console.log(validationResult);
-    if (
-      e.target.agreeChb2.checked &&
-      Object.keys(validationResult).length === 0
-    ) {
-      console.log(JSON.stringify(formData));
-      //submitListForm(formData);
-    } else {
+  const clearOffer = () => {
+    setFormData(initialFormData);
+  };
+
+  //////////
+
+  const onSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      const validationResult = listFormValidation(formData);
       console.log(validationResult);
-      setFormErrors(validationResult);
+      if (Object.keys(validationResult).length === 0) {
+        console.log(JSON.stringify(formData));
+        let { status } = await submitListForm(formData);
+        if (status === 200) {
+          //clearOffer();
+          navigate("/listing-added-successfully", { replace: true });
+        }
+      } else {
+        console.log(validationResult);
+        setFormErrors(validationResult);
+      }
+    } catch (err) {
+      console.log("An Error occured on submit: Err:", err);
     }
-    //listFormValidation(formData);
   };
 
   const onChange = (e) => {
     const { name, type, value, checked, files } = e.target;
-
     setFormData((prevState) => {
       if (name === "voivodeship" || name === "city") {
         return {
@@ -96,11 +109,23 @@ function ListingForm() {
           },
         };
       }
-      // checkbox group
-      if (type === "checkbox") {
-        const updatedAvailability = checked
-          ? // updata Checked status
-            [...prevState.offer.availability, value]
+      // consent
+      if (name === "consent") {
+        const updatedConsent = checked;
+        console.log(updatedConsent);
+        return {
+          ...prevState,
+          offer: {
+            ...prevState.offer,
+            consent: updatedConsent,
+          },
+        };
+      }
+
+      // availability
+      if (name === "availability") {
+        const updatedAvailability = checked // updata Checked status
+          ? [...prevState.offer.availability, value]
           : // update Unchecked status
             prevState.offer.availability.filter((item) => item !== value);
 
@@ -439,7 +464,13 @@ function ListingForm() {
 
                     <div className="col-lg-12 pt-5">
                       <div className="custom-checkbox">
-                        <input type="checkbox" id="agreeChb2" />
+                        <input
+                          type="checkbox"
+                          id="agreeChb2"
+                          value={formData.offer.consent}
+                          name="consent"
+                          onChange={onChange}
+                        />
                         <label htmlFor="agreeChb2" className="text-gray">
                           By continuing, you agree to Listhub's
                           <a
@@ -463,7 +494,7 @@ function ListingForm() {
                           type="submit"
                           className="theme-btn gradient-btn border-0"
                         >
-                          Save & Preview
+                          Create an Offer
                         </button>
                       </div>
                     </div>

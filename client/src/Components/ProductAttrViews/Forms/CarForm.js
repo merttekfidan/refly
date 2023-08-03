@@ -1,13 +1,31 @@
-function CarFormAttributes({ formData, setFormData }) {
+import { useState, useEffect } from "react";
+
+function CarFormAttributes({ formData, setFormData, formErrors }) {
+  const [car, setCar] = useState({
+    brand: "",
+    model: "",
+    year: "",
+    mileage: "",
+    transmission: "",
+    engine_size: "",
+    fuel_type: "",
+  });
+
   const onChange = (e) => {
+    const { name, value } = e.target;
+    setCar((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+  useEffect(() => {
     setFormData((prevState) => ({
       ...prevState,
       product_details: {
-        ...prevState.product_details,
-        [e.target.name]: e.target.value,
+        ...car,
       },
     }));
-  };
+  }, [car]);
 
   return (
     <>
@@ -19,11 +37,7 @@ function CarFormAttributes({ formData, setFormData }) {
               className="user-chosen-select"
               name="brand"
               onChange={onChange}
-              value={
-                formData.product_details.brand
-                  ? formData.product_details.brand
-                  : 0
-              }
+              value={car.brand}
             >
               <option value="0">Select a Car Brand</option>
               <option value="Skoda">Skoda</option>
@@ -31,6 +45,7 @@ function CarFormAttributes({ formData, setFormData }) {
               <option value="Fiat">Fiat</option>
             </select>
           </div>
+          <p className="error-message">{formErrors["product_details.brand"]}</p>
         </div>
       </div>
       <div className="col-lg-6">
@@ -45,13 +60,10 @@ function CarFormAttributes({ formData, setFormData }) {
               name="model"
               placeholder="Fabia"
               onChange={onChange}
-              value={
-                formData.product_details.model
-                  ? formData.product_details.model
-                  : ""
-              }
+              value={car.model}
             />
           </div>
+          <p className="error-message">{formErrors["product_details.model"]}</p>
         </div>
       </div>
       <div className="col-lg-4">
@@ -65,8 +77,10 @@ function CarFormAttributes({ formData, setFormData }) {
               name="year"
               placeholder="2017"
               onChange={onChange}
+              value={car.year}
             />
           </div>
+          <p className="error-message">{formErrors["product_details.year"]}</p>
         </div>
       </div>
       <div className="col-lg-4">
@@ -80,9 +94,11 @@ function CarFormAttributes({ formData, setFormData }) {
               name="mileage"
               onChange={onChange}
               placeholder="140000"
+              value={car.mileage}
             />
           </div>
         </div>
+        <p className="error-message">{formErrors["product_details.mileage"]}</p>
       </div>
       <div className="col-lg-4">
         <div className="input-box">
@@ -92,6 +108,7 @@ function CarFormAttributes({ formData, setFormData }) {
               className="user-chosen-select"
               name="transmission"
               onChange={onChange}
+              value={car.transmission}
             >
               <option value="0">Select a Transmission</option>
               <option value="manual">Manual</option>
@@ -99,6 +116,9 @@ function CarFormAttributes({ formData, setFormData }) {
               <option value="tiptronic">Tiptronic</option>
             </select>
           </div>
+          <p className="error-message">
+            {formErrors["product_details.transmission"]}
+          </p>
         </div>
       </div>
       <div className="col-lg-6">
@@ -111,8 +131,13 @@ function CarFormAttributes({ formData, setFormData }) {
               type="text"
               name="engine_size"
               placeholder="1.4"
+              onChange={onChange}
+              value={car.engine_size}
             />
           </div>
+          <p className="error-message">
+            {formErrors["product_details.engine_size"]}
+          </p>
         </div>
       </div>
       <div className="col-lg-6">
@@ -123,6 +148,7 @@ function CarFormAttributes({ formData, setFormData }) {
               className="user-chosen-select"
               name="fuel_type"
               onChange={onChange}
+              value={car.fuel_type}
             >
               <option value="0">Select a Fuel Type</option>
               <option value="benzin">Benzin</option>
@@ -132,6 +158,9 @@ function CarFormAttributes({ formData, setFormData }) {
               <option value="hybrid">Hybrid</option>
             </select>
           </div>
+          <p className="error-message">
+            {formErrors["product_details.fuel_type"]}
+          </p>
         </div>
       </div>
     </>
