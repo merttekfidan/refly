@@ -9,7 +9,7 @@ export const submitListForm = async (formData) => {
   try {
     const submittedList = await axios.post(FORM_URL, formData, config);
     //console.log(submittedList);
-    return submittedList.response;
+    return submittedList;
   } catch (error) {
     throw error.response.data.error;
   }
