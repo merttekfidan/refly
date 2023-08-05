@@ -29,28 +29,6 @@ function HeaderTopbar() {
         <div className="container-fluid">
           <div className="row">
             <div className="col-lg-6 d-flex align-items-center header-top-info font-size-14 font-weight-medium">
-              {user ? (
-                <>
-                  Welcome {user.data.username}
-                  <a href="#" onClick={onLogout}>
-                    Logout
-                  </a>
-                </>
-              ) : (
-                <>
-                  <p className="login-and-signup-wrap">
-                    <a onClick={() => setLoginVisible(true)} href="#">
-                      <span className="mr-1 la la-sign-in"></span>Login
-                    </a>
-                    <span className="or-text px-2">or</span>
-                    <a onClick={() => setRegisterVisible(true)} href="#">
-                      <span className="mr-1 la la-user-plus"></span>Sign Up
-                    </a>
-                  </p>
-                </>
-              )}
-            </div>
-            <div className="col-lg-6 d-flex align-items-center justify-content-end header-top-info">
               <span className="mr-2 text-white font-weight-semi-bold font-size-14">
                 Follow Refly on:
               </span>
@@ -71,6 +49,28 @@ function HeaderTopbar() {
                   </a>
                 </li>
               </ul>
+            </div>
+            <div className="col-lg-6 d-flex align-items-center justify-content-end header-top-info">
+              {user ? (
+                <>
+                  Welcome {user.data.username}
+                  <a href="#" onClick={onLogout}>
+                    Logout
+                  </a>
+                </>
+              ) : (
+                <>
+                  <p className="login-and-signup-wrap">
+                    <a onClick={() => setLoginVisible(true)} href="#">
+                      <span className="mr-1 la la-sign-in"></span>Login
+                    </a>
+                    <span className="or-text px-2">or</span>
+                    <a onClick={() => setRegisterVisible(true)} href="#">
+                      <span className="mr-1 la la-user-plus"></span>Sign Up
+                    </a>
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
