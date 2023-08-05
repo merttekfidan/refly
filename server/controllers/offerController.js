@@ -1,3 +1,6 @@
+const multer = require("multer");
+
+const sharp = require("sharp");
 const catchAsync = require("./../utils/catchAsync");
 const AppError = require("./../utils/appError");
 const Offer = require("./../models/offerModel");
@@ -21,6 +24,41 @@ modelFactory = (category) => {
   }
 };
 
+const multerStorage = multer.memoryStorage();
+
+const multerFilter = (req, file, cb) => {
+  if (file.mimetype.startsWith("image")) {
+    cb(null, true);
+  } else {
+    cb(new AppError("Not an image! Please upload only images.", 400), false);
+  }
+};
+
+const upload = multer({ storage: multerStorage, fileFilter: multerFilter });
+
+exports.uploadOfferImages = upload.fields([
+  { name: "images_url", maxCount: 3 },
+]);
+
+exports.resizeOfferImages = catchAsync(async (req, res, next) => {
+  if (!req.files.images_url) return next();
+
+  //  Images
+  req.body.offer = { images_url: [] };
+  await Promise.all(
+    req.files.images_url.map(async (file, i) => {
+      const filename = `${Date.now()}-${i + 1}.jpeg`;
+
+      await sharp(file.buffer)
+        .resize(2000, 1333)
+        .toFormat("jpeg")
+        .jpeg({ quality: 90 })
+        .toFile(`public/img/listings/${filename}`);
+      req.body.offer.images_url.push(filename);
+    })
+  );
+  next();
+});
 exports.getAllOffers = catchAsync(async (req, res, next) => {
   const allOffers = await Offer.find();
   if (!allOffers) {
@@ -78,16 +116,14 @@ exports.updateOffer = catchAsync(async (req, res, next) => {
       new: true,
     }
   );
-  console.log(updatedOffer);
   if (!updatedOffer) {
     return next(new AppError("No offer found with this ID", 404));
   }
-  const updatedProduct = await modelFactory(offer.category).findByIdAndUpdate(
-    updatedOffer.product._id,
-    {
-      ...product_details,
-    }
-  );
+  const updatedProduct = await modelFactory(
+    updatedOffer.category
+  ).findByIdAndUpdate(updatedOffer.product._id, {
+    ...product_details,
+  });
   await updatedOffer.populate("product");
   res.status(200).json({
     status: "success",

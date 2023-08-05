@@ -5,6 +5,8 @@ const {
   addOffer,
   updateOffer,
   deleteOffer,
+  uploadOfferImages,
+  resizeOfferImages,
 } = require("./../controllers/offerController");
 const { protect, restrictTo } = require("./../controllers/authController");
 const router = express.Router();
@@ -16,7 +18,13 @@ router
 router
   .route("/:offerId")
   .get(getOneOffer)
-  .patch(protect, restrictTo("admin", "user"), updateOffer)
+  .patch(
+    protect,
+    restrictTo("admin", "user"),
+    uploadOfferImages,
+    resizeOfferImages,
+    updateOffer
+  )
   .delete(protect, restrictTo("admin", "user"), deleteOffer);
 
 module.exports = router;
