@@ -24,7 +24,7 @@ function CarCard({ data }) {
       <div className="row">
         <div className="col">
           <h6 className="text-muted pt-3">Mileage:</h6> {data.product.mileage}
-          00 km
+          km
         </div>
         <div className="col">
           <h6 className="text-muted pt-3">Transmission:</h6>
