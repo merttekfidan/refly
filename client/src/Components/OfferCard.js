@@ -19,7 +19,11 @@ function OfferCard({ data }) {
         <div className="card-image">
           <a href="listing-details.html" className="d-block">
             <img
-              src="theme/assets/images/img4.jpg"
+              src={
+                data.images_url[0]
+                  ? `/img/listings/${data.images_url[0]}`
+                  : "/theme/assets/images/no-image.jpeg"
+              }
               className="card__img"
               alt=""
             />
@@ -31,7 +35,7 @@ function OfferCard({ data }) {
         </div>
         <div className="card-content">
           <a href="/#" className="user-thumb d-inline-block" title="TechyDevs">
-            <img src="theme/assets/images/listing-logo.jpg" alt="author-img" />
+            <img src={`img/listings/${data.images_url[0]}`} alt="author-img" />
           </a>
           <h6 className="text-muted pt-3">{data.category}</h6>
           <span className="d-flex align-items-center justify-content-between pt-0">
