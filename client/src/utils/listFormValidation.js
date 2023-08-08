@@ -8,6 +8,11 @@ function isNumber(value) {
   return !isNaN(value);
 }
 
+function containsOnlyDigits(value) {
+  const numberRegex = /^\d+$/;
+  return numberRegex.test(value);
+}
+
 // Helper function to check if a value is within a specified range
 function isInRange(value, min, max) {
   return value >= min && value <= max;
@@ -69,6 +74,10 @@ const validationSchema = {
       message: "Price should be a number",
     },
     {
+      validate: (value) => containsOnlyDigits(value),
+      message: "Price should NOT contain comma(,) or dot(.)",
+    },
+    {
       validate: (value) => isInRange(value, 0, 999999),
       message: "Price should be between 0-999999",
     },
@@ -85,12 +94,14 @@ const validationSchema = {
       message: "Description cannot be more than 1000 characters",
     },
   ],
-  "offer.concent": [
+  "offer.consent": [
     {
-      validate: (value) => value === "on" && value,
-      message: "Description cannot be more than 1000 characters",
+      validate: (value) => value === true && value,
+      message:
+        "You must agree Term Of Service and Acknowledge our Privacy Policy",
     },
   ],
+
   "product_details.brand": [
     {
       validate: (value) => !isEmpty(value),
@@ -103,8 +114,8 @@ const validationSchema = {
       message: "Model is required",
     },
     {
-      validate: (value) => value.length >= 5 && value.length <= 25,
-      message: "Model should be between 5-25 characters",
+      validate: (value) => value.length >= 1 && value.length <= 25,
+      message: "Model should be between 1-25 characters",
     },
   ],
   "product_details.year": [
@@ -129,6 +140,10 @@ const validationSchema = {
     {
       validate: (value) => isNumber(value),
       message: "Mileage should be a number",
+    },
+    {
+      validate: (value) => containsOnlyDigits(value),
+      message: "Mileage should NOT contain comma(,) or dot(.)",
     },
     {
       validate: (value) => isInRange(value, 0, 500000),
