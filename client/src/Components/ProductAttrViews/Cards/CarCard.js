@@ -1,3 +1,4 @@
+import { capitalizeFirstLetter } from "./../../../utils/styleText";
 function CarCard({ data }) {
   /*
     CAR
@@ -18,7 +19,8 @@ function CarCard({ data }) {
           <h6 className="text-muted">Year:</h6> {data.product.year}
         </div>
         <div className="col">
-          <h6 className="text-muted">Fuel Type:</h6> {data.product.fuel_type}
+          <h6 className="text-muted">Fuel Type:</h6>{" "}
+          {capitalizeFirstLetter(data.product.fuel_type)}
         </div>
       </div>
       <div className="row">
@@ -28,7 +30,7 @@ function CarCard({ data }) {
         </div>
         <div className="col">
           <h6 className="text-muted pt-3">Transmission:</h6>
-          {data.product.transmission}
+          {capitalizeFirstLetter(data.product.transmission)}
         </div>
       </div>
     </>
