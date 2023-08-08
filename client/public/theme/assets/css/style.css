@@ -1534,6 +1534,24 @@ body {
   opacity: 1;
   visibility: visible;
 }
+.gradient-btn.disabled {
+  /* Styles for the disabled button */
+  background: #686868 !important;
+  color: #999999;
+  cursor: not-allowed;
+}
+.gradient-btn.disabled:hover {
+  /* Styles for the disabled button */
+  background: #686868 !important;
+  color: #999999;
+  cursor: not-allowed;
+}
+.gradient-btn.disabled::before {
+  /* Styles for the disabled button */
+  background: #686868 !important;
+  color: #999999;
+  cursor: not-allowed;
+}
 .offer-btn {
   background: #fff;
   color: #7b68ee;
@@ -6125,6 +6143,7 @@ div.datedropper .picker .pick-lg-b li {
   -webkit-border-radius: 8px 8px 0 0;
   -moz-border-radius: 8px 8px 0 0;
   border-radius: 8px 8px 0 0;
+  max-height: 232px;
 }
 .card-item .card-image .badge {
   position: absolute;
