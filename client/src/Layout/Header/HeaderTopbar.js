@@ -1,12 +1,8 @@
-import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import LoginModal from "./../../Sections/LoginModal";
-import RegisterModal from "./../../Sections/RegisterModal";
+import { Link } from "react-router-dom";
 import { logout, reset } from "./../../redux/authSlice";
 
 function HeaderTopbar() {
-  const [loginVisible, setLoginVisible] = useState(false);
-  const [registerVisible, setRegisterVisible] = useState(false);
   const dispatch = useDispatch();
   const { user, isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.auth
@@ -15,12 +11,6 @@ function HeaderTopbar() {
     dispatch(logout());
     dispatch(reset());
   };
-  useEffect(() => {
-    if (isSuccess) {
-      setLoginVisible(false);
-      setRegisterVisible(false);
-    }
-  }, [user, isSuccess, isError, message, isLoading]);
 
   return (
     <>
@@ -60,13 +50,12 @@ function HeaderTopbar() {
               ) : (
                 <>
                   <p className="login-and-signup-wrap">
-                    <a onClick={() => setLoginVisible(true)} href="#">
-                      <span className="mr-1 la la-sign-in"></span>Login
-                    </a>
+                    <span className="mr-1 la la-sign-in"></span>
+                    <Link to="login">Login</Link>
+
                     <span className="or-text px-2">or</span>
-                    <a onClick={() => setRegisterVisible(true)} href="#">
-                      <span className="mr-1 la la-user-plus"></span>Sign Up
-                    </a>
+                    <span className="mr-1 la la-user-plus"></span>
+                    <Link to="register">Register</Link>
                   </p>
                 </>
               )}
@@ -74,10 +63,6 @@ function HeaderTopbar() {
           </div>
         </div>
       </div>
-      {loginVisible && <LoginModal loginVisible switch={setLoginVisible} />}
-      {registerVisible && (
-        <RegisterModal registerVisible switch={setRegisterVisible} />
-      )}
     </>
   );
 }

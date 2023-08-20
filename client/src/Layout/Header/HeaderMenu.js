@@ -1,17 +1,6 @@
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
-import LoginModal from "./../../Sections/LoginModal";
 
 function HeaderMenu() {
-  const [loginVisible, setLoginVisible] = useState(false);
-  const { isSuccess } = useSelector((state) => state.auth);
-  useEffect(() => {
-    if (isSuccess) {
-      setLoginVisible(false);
-    }
-  }, [isSuccess]);
-
   return (
     <>
       <div className="header-menu-wrapper padding-right-30px padding-left-30px">
@@ -151,17 +140,7 @@ function HeaderMenu() {
                                   <a href="top-place.html">top places </a>
                                 </li>
                                 <li>
-                                  {isSuccess ? (
-                                    <Link to="/add-listing">add listing </Link>
-                                  ) : (
-                                    <Link
-                                      onClick={() =>
-                                        setLoginVisible(!loginVisible)
-                                      }
-                                    >
-                                      add listing
-                                    </Link>
-                                  )}
+                                  <Link to="/add-listing">add listing </Link>
                                 </li>
                               </ul>
                             </li>
@@ -307,28 +286,12 @@ function HeaderMenu() {
                   </form>
                 </div>
                 <div className="nav-right-content ml-auto">
-                  {isSuccess ? (
-                    <Link
-                      to="/add-listing"
-                      className="theme-btn gradient-btn shadow-none add-listing-btn-hide"
-                    >
-                      <i className="la la-plus mr-2"></i>Add Listing
-                    </Link>
-                  ) : (
-                    <Link
-                      onClick={() => setLoginVisible(!loginVisible)}
-                      className="theme-btn gradient-btn shadow-none add-listing-btn-hide"
-                    >
-                      <i className="la la-plus mr-2"></i>Add Listing
-                    </Link>
-                  )}
-                  {/* Render the LoginModal when loginModalVisible is true */}
-                  {loginVisible && (
-                    <LoginModal
-                      loginVisible={setLoginVisible}
-                      switch={setLoginVisible}
-                    />
-                  )}
+                  <Link
+                    to="/add-listing"
+                    className="theme-btn gradient-btn shadow-none add-listing-btn-hide"
+                  >
+                    <i className="la la-plus mr-2"></i>Add Listing
+                  </Link>
                 </div>
               </div>
             </div>
