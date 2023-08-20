@@ -4,12 +4,11 @@ import { useSelector } from "react-redux";
 import LoginModal from "./../../Sections/LoginModal";
 
 function HeaderMenu() {
-  const [isLoggedin, setIsLoggeding] = useState(false);
   const [loginVisible, setLoginVisible] = useState(false);
   const { isSuccess } = useSelector((state) => state.auth);
   useEffect(() => {
     if (isSuccess) {
-      setIsLoggeding(isSuccess);
+      setLoginVisible(false);
     }
   }, [isSuccess]);
 
@@ -152,7 +151,7 @@ function HeaderMenu() {
                                   <a href="top-place.html">top places </a>
                                 </li>
                                 <li>
-                                  {isLoggedin ? (
+                                  {isSuccess ? (
                                     <Link to="/add-listing">add listing </Link>
                                   ) : (
                                     <Link
@@ -308,7 +307,7 @@ function HeaderMenu() {
                   </form>
                 </div>
                 <div className="nav-right-content ml-auto">
-                  {isLoggedin ? (
+                  {isSuccess ? (
                     <Link
                       to="/add-listing"
                       className="theme-btn gradient-btn shadow-none add-listing-btn-hide"

@@ -11,7 +11,6 @@ function HeaderTopbar() {
   const { user, isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.auth
   );
-
   const onLogout = () => {
     dispatch(logout());
     dispatch(reset());
