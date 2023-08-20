@@ -10,24 +10,35 @@ function Register() {
     username: "",
     email: "",
     password: "",
+    consent: false,
   });
+  const [formErrors, setFormErrors] = useState({});
 
   const dispatch = useDispatch();
-  const { user, isLoading, isError, isSuccess, message } = useSelector(
-    (state) => state.auth
-  );
+  const { isSuccess, isLoading } = useSelector((state) => state.auth);
+
   useEffect(() => {
     if (isSuccess) {
       navigate("/", { replace: true });
     }
-  }, [isSuccess]);
+  }, [isSuccess, isLoading]);
 
   const onChange = (e) => {
-    setFormData((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-    console.log(e.target.name, e.target.value);
+    const { name, type, value, checked } = e.target;
+    setFormData((prevState) => {
+      // consent
+      if (name === "consent") {
+        return {
+          ...prevState,
+          consent: checked,
+        };
+      }
+
+      return {
+        ...prevState,
+        [name]: value,
+      };
+    });
   };
 
   const onSubmit = (e) => {
@@ -37,8 +48,8 @@ function Register() {
     if (Object.keys(validationResult).length === 0) {
       console.log(validationResult);
       dispatch(register(formData));
-      console.log(message);
     }
+    setFormErrors(validationResult);
   };
   return (
     <section className="add-listing-area section-padding">
@@ -58,6 +69,7 @@ function Register() {
                       placeholder="Username"
                       onChange={onChange}
                     />
+                    <p className="error-message">{formErrors["username"]}</p>
                   </div>
                 </div>
                 <div className="input-box">
@@ -71,6 +83,7 @@ function Register() {
                       onChange={onChange}
                       placeholder="Email address"
                     />
+                    <p className="error-message">{formErrors["email"]}</p>
                   </div>
                 </div>
                 <div className="input-box">
@@ -86,31 +99,40 @@ function Register() {
                     />
                   </div>
                   <p className="font-size-14 mt-n2">
-                    Your password must be at least 6 characters long and must
-                    contain letters, numbers and special characters. Cannot
-                    contain whitespace.
+                    Your password must be at least 6 characters long.
                   </p>
+                  <p className="error-message">{formErrors["password"]}</p>
                 </div>
                 <div className="input-box py-4 user-action-meta">
                   <div className="custom-checkbox">
-                    <input type="checkbox" id="agreeChb" />
+                    <input
+                      type="checkbox"
+                      name="consent"
+                      id="agreeChb"
+                      checked={formData.consent}
+                      onChange={onChange}
+                    />
                     <label htmlFor="agreeChb" className="font-size-14">
-                      By signing up, you agree to our{" "}
+                      By signing up, you agree to our
                       <a href="privacy-policy.html" className="text-color-2">
                         Privacy Policy.
                       </a>
                     </label>
+                    <p className="error-message">{formErrors["consent"]}</p>
                   </div>
                 </div>
                 <div className="btn-box">
                   <button
                     type="submit"
-                    className="theme-btn gradient-btn w-100"
+                    className={`theme-btn gradient-btn w-100 ${
+                      isLoading ? "disabled" : ""
+                    } `}
+                    disabled={isLoading ? true : false}
                   >
                     <i className="la la-user-plus mr-1"></i> Register Account
                   </button>
                   <p className="sub-text-box text-right pt-1 font-weight-medium font-size-14">
-                    Already on Listhub?{" "}
+                    Already on Listhub?
                     <a className="text-color-2 login-btn" href="#">
                       Log in
                     </a>

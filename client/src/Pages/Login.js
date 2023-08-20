@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./../redux/authSlice";
 function Login() {
@@ -90,43 +90,8 @@ function Login() {
             <div className="btn-box">
               <p className="sub-text-box text-right pt-1 font-weight-medium font-size-14">
                 New to Listhub?
-                <button
-                  style={{ border: 0, backgroundColor: "transparent" }}
-                  className="text-color-2 signup-btn"
-                >
-                  Create account
-                </button>
+                <Link to="register">Create account</Link>
               </p>
-            </div>
-            <div className="icon-element font-size-16 font-weight-semi-bold mt-5 mb-4 mx-auto">
-              OR
-            </div>
-            <div className="text-center">
-              <p className="font-size-15 font-weight-medium">
-                Login with your social network
-              </p>
-              <ul className="social-profile social-profile-colored py-3">
-                <li>
-                  <a href="#" className="google-bg mx-1" title="Google">
-                    <i className="lab la-google"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="facebook-bg mx-1" title="Facebook">
-                    <i className="lab la-facebook-f"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="twitter-bg mx-1" title="Twitter">
-                    <i className="lab la-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" className="instagram-bg mx-1" title="Instagram">
-                    <i className="lab la-instagram"></i>
-                  </a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
