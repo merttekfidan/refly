@@ -1,20 +1,26 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import signUpValidation from "./../utils/validations/signUpValidations";
 import { register, reset } from "./../redux/authSlice";
-function Register(props) {
+
+function Register() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: "",
     email: "",
     password: "",
   });
-  const { username, email, password } = formData;
 
   const dispatch = useDispatch();
   const { user, isLoading, isError, isSuccess, message } = useSelector(
     (state) => state.auth
   );
+  useEffect(() => {
+    if (isSuccess) {
+      navigate("/", { replace: true });
+    }
+  }, [isSuccess]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -26,31 +32,19 @@ function Register(props) {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const userData = {
-      username,
-      email,
-      password,
-    };
-    console.log(userData);
-    dispatch(register(userData));
+    const validationResult = signUpValidation(formData);
+    console.log(validationResult);
+    if (Object.keys(validationResult).length === 0) {
+      console.log(validationResult);
+      dispatch(register(formData));
+      console.log(message);
+    }
   };
   return (
-    <Modal show={props.registerVisible} onHide={() => props.switch(false)}>
-      <Modal.Body>
-        <div className="modal-dialog modal-dialog-centered" role="document">
-          <div className="modal-content">
-            <div className="modal-header align-items-center mh-bg-2">
-              <h5 className="modal-title" id="signUpModalTitle">
-                Welcome! create your listhub account
-              </h5>
-              <button
-                type="button"
-                className="close"
-                onClick={() => props.switch()}
-              >
-                <span aria-hidden="true" className="la la-times-circle"></span>
-              </button>
-            </div>
+    <section className="add-listing-area section-padding">
+      <div className="container">
+        <div className="row flex-column">
+          <div className="col-lg-6 mx-auto">
             <div className="modal-body">
               <form method="post" className="form-box" onSubmit={onSubmit}>
                 <div className="input-box">
@@ -122,49 +116,12 @@ function Register(props) {
                     </a>
                   </p>
                 </div>
-                <div className="icon-element font-size-16 font-weight-semi-bold mt-5 mb-4 mx-auto">
-                  OR
-                </div>
-                <div className="text-center">
-                  <p className="font-size-15 font-weight-medium">
-                    Connect with social network
-                  </p>
-                  <ul className="social-profile social-profile-colored py-3">
-                    <li>
-                      <a href="#" className="google-bg mx-1" title="Google">
-                        <i className="lab la-google"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="facebook-bg mx-1" title="Facebook">
-                        <i className="lab la-facebook-f"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#" className="twitter-bg mx-1" title="Twitter">
-                        <i className="lab la-twitter"></i>
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="instagram-bg mx-1"
-                        title="Instagram"
-                      >
-                        <i className="lab la-instagram"></i>
-                      </a>
-                    </li>
-                  </ul>
-                  <p className="font-size-15 pb-3">
-                    Don't worry, we never any post to your social profile.
-                  </p>
-                </div>
               </form>
             </div>
           </div>
         </div>
-      </Modal.Body>
-    </Modal>
+      </div>
+    </section>
   );
 }
 
