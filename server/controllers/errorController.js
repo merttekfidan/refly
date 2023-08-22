@@ -5,9 +5,9 @@ const handleCastErrorDB = (err) => {
   return new AppError(message, 400);
 };
 const handleDuplicateErrorDB = (err) => {
-  const message = `Duplicate field value: ${
+  const message = `${
     Object.values(err.keyValue)[0]
-  }. Please use another value!`;
+  }. Already exists. Please use another value!`;
   return new AppError(message, 400);
 };
 const handleValidationErrorDB = (err) => {
