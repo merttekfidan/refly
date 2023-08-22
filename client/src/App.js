@@ -7,6 +7,7 @@ import ListingForm from "./Pages/ListingForm";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import AddedSuccessfully from "./Pages/AddedSuccessfully";
+import ListingDetails from "./Pages/ListingDetails";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/add-listing" element={<ListingForm />} />
+        <Route path="/listing-details" element={<ListingDetails />} />
         <Route
           path="/listing-added-successfully"
           element={<AddedSuccessfully />}
