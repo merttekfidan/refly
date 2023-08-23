@@ -10,10 +10,7 @@ function HeaderMenu() {
               <div className="menu-full-width">
                 <div className="logo">
                   <Link to="/">
-                    <img
-                      src="./theme/assets/images/logo-white.png"
-                      alt="logo"
-                    />
+                    <img src="/theme/assets/images/logo-white.png" alt="logo" />
                   </Link>
                   <div className="d-flex align-items-center">
                     <Link

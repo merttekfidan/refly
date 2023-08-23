@@ -45,14 +45,14 @@ function FooterMain() {
               <div className="footer-item">
                 <div className="footer-logo">
                   <a href="index.html" className="foot-logo">
-                    <img src="theme/assets/images/logo-black.png" alt="logo" />
+                    <img src="/theme/assets/images/logo-black.png" alt="logo" />
                   </a>
                 </div>
                 <ul className="list-items contact-links pt-3">
                   <li>
                     <span className="d-block text-color mb-1">
                       <i className="la la-map mr-1 text-color-2"></i>Address:
-                    </span>{" "}
+                    </span>
                     12345 Little Baker St, Melbourne
                   </li>
                   <li>
