@@ -34,3 +34,13 @@ export const submitImages = async (formData, id) => {
     throw error;
   }
 };
+
+export const getOneOffer = async (offerId) => {
+  try {
+    const offer = await axios.get(FORM_URL + offerId);
+    console.log(offer.data);
+    return offer.data;
+  } catch (err) {
+    console.log(err);
+  }
+};
