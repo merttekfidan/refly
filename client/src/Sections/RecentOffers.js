@@ -4,9 +4,13 @@ import { getRecentOffers } from "./../@@API/viewService";
 function RecentOffers() {
   const [offers, setOffers] = useState("");
   const apiToState = async () => {
-    const res = await getRecentOffers();
-    setOffers(res);
-    console.log(res);
+    try {
+      const res = await getRecentOffers();
+      setOffers(res);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
