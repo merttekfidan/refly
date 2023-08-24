@@ -18,7 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/add-listing" element={<ListingForm />} />
-        <Route path="/listing-details" element={<ListingDetails />} />
+        <Route path="/listing-details/:offerId" element={<ListingDetails />} />
         <Route
           path="/listing-added-successfully"
           element={<AddedSuccessfully />}

@@ -1,7 +1,24 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
+import { getOneOffer } from "./../@@API/offerService";
 function ListingDetails() {
+  const { offerId } = useParams();
+  const [offer, setOffer] = useState({});
+  const getOfferFromApi = async (offerId) => {
+    try {
+      const res = await getOneOffer(offerId);
+      setOffer(res.data);
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    getOfferFromApi(offerId);
+  }, []);
   return (
     <>
       <section className="breadcrumb-area bg-gradient-gray py-5">
@@ -15,12 +32,12 @@ function ListingDetails() {
                       <a href="index.html">Home</a>
                     </li>
                     <li>
-                      <a href="#">Restaurant</a>
+                      <a href="#">{offer.category}</a>
                     </li>
                     <li>Super Duper Burgers</li>
                   </ul>
                   <div className="d-flex align-items-center pt-1">
-                    <h2 className="sec__title mb-0">Super Duper Burgers</h2>
+                    <h2 className="sec__title mb-0">{offer.title}</h2>
                     <div className="hover-tooltip-box ml-2 pt-2">
                       <span className="text-color">
                         <i className="la la-check-circle mr-1 text-color-4"></i>
@@ -35,68 +52,10 @@ function ListingDetails() {
                     </div>
                   </div>
                   <p className="sec__desc py-2 font-size-17">
-                    <i className="la la-map-marker mr-1 text-color-2"></i>390
-                    Greenwich StNew York, NY 10013
+                    <i className="la la-map-marker mr-1 text-color-2"></i>
+                    {offer.location && offer.location.voivodeship} -
+                    {offer.location && offer.location.city}
                   </p>
-                  <p className="pb-2 font-weight-medium">
-                    <span
-                      className="price-range mr-1 text-color font-size-16"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Moderate"
-                    >
-                      <strong className="font-weight-medium">$</strong>
-                      <strong className="font-weight-medium ml-n1">$</strong>
-                    </span>
-                    <span className="category-link">
-                      <a href="#">Burgers</a>,
-                      <a href="#">American (Traditional)</a>
-                    </span>
-                  </p>
-                  <div className="d-flex flex-wrap align-items-center">
-                    <div className="star-rating-wrap d-flex align-items-center">
-                      <div className="star-rating text-color-5 font-size-18">
-                        <span>
-                          <i className="la la-star"></i>
-                        </span>
-                        <span className="ml-n1">
-                          <i className="la la-star"></i>
-                        </span>
-                        <span className="ml-n1">
-                          <i className="la la-star"></i>
-                        </span>
-                        <span className="ml-n1">
-                          <i className="la la-star"></i>
-                        </span>
-                        <span className="ml-n1">
-                          <i className="la la-star"></i>
-                        </span>
-                      </div>
-                      <p className="font-size-14 pl-2 font-weight-medium">
-                        1348 reviews
-                      </p>
-                    </div>
-                    <div className="timestamp font-weight-medium ml-3 pl-3 border-left border-left-color line-height-20">
-                      <span className="text-color-4 mr-2">Open:</span>
-                      <span>11:00 AM - 8:00 PM</span>
-                    </div>
-                  </div>
-                  <div className="btn-box pt-3">
-                    <a href="#review" className="btn-gray mr-1">
-                      <i className="la la-star mr-1"></i>Write a Review
-                    </a>
-                    <a href="#" className="btn-gray mr-1">
-                      <i className="la la-bookmark mr-1"></i>Save
-                    </a>
-                    <a
-                      href="#"
-                      className="btn-gray"
-                      data-toggle="modal"
-                      data-target="#shareModal"
-                    >
-                      <i className="la la-external-link mr-1"></i>Share
-                    </a>
-                  </div>
                 </div>
                 <div className="btn-box d-flex align-items-center">
                   <span className="btn-gray mr-2">
@@ -105,31 +64,6 @@ function ListingDetails() {
                   <span className="btn-gray mr-2">
                     <i className="la la-heart mr-1"></i>Saved - 124
                   </span>
-                  <div className="dropdown dot-action-wrap">
-                    <button
-                      className="dot-action-btn dropdown-toggle after-none border-0"
-                      type="button"
-                      id="dropdownMenuButton"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      <i className="la la-ellipsis-v"></i>
-                    </button>
-                    <div
-                      className="dropdown-menu dropdown-menu-right"
-                      aria-labelledby="dropdownMenuButton"
-                    >
-                      <a
-                        className="dropdown-item"
-                        href="#"
-                        data-toggle="modal"
-                        data-target="#reportModal"
-                      >
-                        <i className="la la-flag mr-1"></i>Report
-                      </a>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -142,99 +76,84 @@ function ListingDetails() {
             <div className="col-lg-8">
               <div className="listing-detail-wrap">
                 <div className="card mb-4">
-                  <Carousel>
-                    <div>
-                      <img src="/img/listings/1691520520582-1.jpeg" />
-                    </div>
-                    <div>
-                      <img src="/img/listings/1691520520582-1.jpeg" />
-                    </div>
-                    <div>
-                      <img src="/img/listings/1691520520582-1.jpeg" />
-                    </div>
-                    <div>
-                      <img src="/img/listings/1691520520582-1.jpeg" />
-                    </div>
-                    <div>
-                      <img src="/img/listings/1691520520582-1.jpeg" />
-                    </div>
-                    <div>
-                      <img src="/img/listings/1691520520582-1.jpeg" />
-                    </div>
-                    <div>
-                      <img src="/img/listings/1691520520582-1.jpeg" />
-                    </div>
-                    <div>
-                      <img src="/img/listings/1691520520582-1.jpeg" />
-                    </div>
-                    <div>
-                      <img src="/img/listings/1691520520582-1.jpeg" />
-                    </div>
+                  <Carousel showArrows={true} showThumbs={true}>
+                    {offer.images_url
+                      ? offer.images_url.map((e, index) => {
+                          return (
+                            <div key={index}>
+                              <img src={`/img/listings/${e}`} />
+                            </div>
+                          );
+                        })
+                      : ""}
                   </Carousel>
                 </div>
 
                 <div className="block-card mb-4">
                   <div className="block-card-header">
-                    <h2 className="widget-title">COVID-19 Updates</h2>
+                    <h2 className="widget-title">Availabilities</h2>
+                    <div className="stroke-shape"></div>
+                  </div>
+
+                  <div className="block-card-body">
+                    <div className="info-list-box">
+                      <ul className="row info-list">
+                        {offer.availability
+                          ? offer.availability.map((e, index) => {
+                              return (
+                                <li className="col-lg-6" key={index}>
+                                  <i className="la la-check mr-2 text-color-4"></i>
+                                  {e}
+                                </li>
+                              );
+                            })
+                          : ""}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                <div className="block-card mb-4">
+                  <div className="block-card-header">
+                    <h2 className="widget-title">Product Details</h2>
                     <div className="stroke-shape"></div>
                   </div>
                   <div className="block-card-body">
-                    <div className="info-list-box pb-4">
-                      <h3 className="widget-title font-size-16 pb-3">
-                        Updated Services
-                      </h3>
-                      <ul className="row info-list">
-                        <li className="col-lg-3">
-                          <i className="la la-check mr-2 text-color-4"></i>
-                          Outdoor seating
-                        </li>
-                        <li className="col-lg-3">
-                          <i className="la la-check mr-2 text-color-4"></i>
-                          Delivery
-                        </li>
-                        <li className="col-lg-3">
-                          <i className="la la-check mr-2 text-color-4"></i>
-                          Takeout
-                        </li>
-                        <li className="col-lg-3">
-                          <i className="la la-check mr-2 text-color-4"></i>
-                          Sit-down dining
-                        </li>
-                      </ul>
-                    </div>
-                    <div className="info-list-box">
-                      <h3 className="widget-title font-size-16 pb-3">
-                        Health & Safety Measures{" "}
-                        <span className="pl-2 font-size-14 text-gray font-weight-medium">
-                          Based on info from the business and our users
-                        </span>
-                      </h3>
-                      <ul className="row info-list">
-                        <li className="col-lg-6">
-                          <i className="la la-check mr-2 text-color-4"></i>Masks
-                          required
-                        </li>
-                        <li className="col-lg-6">
-                          <i className="la la-check mr-2 text-color-4"></i>Staff
-                          wears masks
-                        </li>
-                        <li className="col-lg-6">
-                          <i className="la la-check mr-2 text-color-4"></i>Hand
-                          sanitizer provided
-                        </li>
-                        <li className="col-lg-6">
-                          <i className="la la-check mr-2 text-color-4"></i>
-                          Social distancing enforced
-                        </li>
-                        <li className="col-lg-6">
-                          <i className="la la-check mr-2 text-color-4"></i>
-                          Sanitizing between customers
-                        </li>
-                        <li className="col-lg-6">
-                          <i className="la la-check mr-2 text-color-4"></i>
-                          Temperature checks
-                        </li>
-                      </ul>
+                    <div className="review-content d-flex flex-wrap align-items-center">
+                      <div className="review-bars d-flex flex-row flex-wrap flex-grow-1 align-items-center">
+                        <div className="review-bars-item d-flex justify-content-between">
+                          <span className="review-bars-name">Service</span>
+                          <span className="review-bars-name">Service</span>
+                        </div>
+                        <div className="review-bars-item">
+                          <span className="review-bars-name">
+                            Value for Money
+                          </span>
+                          <div className="review-bars-inner d-flex w-100 align-items-center">
+                            <span className="review-bars-review">
+                              <span className="review-bars-review-inner"></span>
+                            </span>
+                            <span className="pill">4.0</span>
+                          </div>
+                        </div>
+                        <div className="review-bars-item">
+                          <span className="review-bars-name">Quality</span>
+                          <div className="review-bars-inner d-flex w-100 align-items-center">
+                            <span className="review-bars-review">
+                              <span className="review-bars-review-inner"></span>
+                            </span>
+                            <span className="pill">2.8</span>
+                          </div>
+                        </div>
+                        <div className="review-bars-item">
+                          <span className="review-bars-name">Location</span>
+                          <div className="review-bars-inner d-flex w-100 align-items-center">
+                            <span className="review-bars-review">
+                              <span className="review-bars-review-inner"></span>
+                            </span>
+                            <span className="pill">3.9</span>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -245,16 +164,7 @@ function ListingDetails() {
                   </div>
                   <div className="block-card-body">
                     <p className="pb-3 font-weight-medium line-height-30">
-                      Nemo ucxqui officia voluptatem accu santium doloremque
-                      laudantium, totam rem ape dicta sunt dose explicabo. Nemo
-                      enim ipsam voluptatem quia voluptas. Excepteur sint
-                      occaecat cupidatat non proident, sunt in culpa kequi
-                      officia deserunt mollit anim id est laborum. Sed ut
-                      perspiciatis unde omnis iste natus error sit voluptatem
-                      accusan tium dolorem que laudantium, totam rem aperiam the
-                      eaque ipsa quae abillo was inventore veritatis keret quasi
-                      aperiam architecto beatae vitae dicta sunt explicabo.
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      {offer.description}
                     </p>
                     <div
                       className="collapse collapse-content"
@@ -271,7 +181,6 @@ function ListingDetails() {
                     </div>
                     <a
                       className="collapse-btn"
-                      data-toggle="collapse"
                       href="#showMoreOptionCollapse"
                       role="button"
                       aria-expanded="false"
@@ -284,94 +193,6 @@ function ListingDetails() {
                         Read Less <i className="la la-minus ml-1"></i>
                       </span>
                     </a>
-                  </div>
-                </div>
-
-                <div className="block-card mb-4">
-                  <div className="block-card-header">
-                    <h2 className="widget-title">Rating Stats</h2>
-                    <div className="stroke-shape"></div>
-                  </div>
-                  <div className="block-card-body">
-                    <div className="review-content d-flex flex-wrap align-items-center">
-                      <div className="review-rating-summary">
-                        <span className="stats-average__count">4.6</span>
-                        <div className="star-rating-wrap">
-                          <p className="font-size-14 font-weight-medium">
-                            out of 5.0
-                          </p>
-                          <div className="star-rating text-color-5 font-size-18">
-                            <span>
-                              <i className="la la-star"></i>
-                            </span>
-                            <span className="ml-n1">
-                              <i className="la la-star"></i>
-                            </span>
-                            <span className="ml-n1">
-                              <i className="la la-star"></i>
-                            </span>
-                            <span className="ml-n1">
-                              <i className="la la-star"></i>
-                            </span>
-                            <span className="ml-n1">
-                              <i className="la la-star"></i>
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="review-bars d-flex flex-row flex-wrap flex-grow-1 align-items-center">
-                        <div className="review-bars-item">
-                          <span className="review-bars-name">Service</span>
-                          <div className="review-bars-inner d-flex w-100 align-items-center">
-                            <span
-                              className="review-bars-review"
-                              data-rating="4.6"
-                            >
-                              <span className="review-bars-review-inner"></span>
-                            </span>
-                            <span className="pill">4.6</span>
-                          </div>
-                        </div>
-                        <div className="review-bars-item">
-                          <span className="review-bars-name">
-                            Value for Money
-                          </span>
-                          <div className="review-bars-inner d-flex w-100 align-items-center">
-                            <span
-                              className="review-bars-review"
-                              data-rating="4.0"
-                            >
-                              <span className="review-bars-review-inner"></span>
-                            </span>
-                            <span className="pill">4.0</span>
-                          </div>
-                        </div>
-                        <div className="review-bars-item">
-                          <span className="review-bars-name">Quality</span>
-                          <div className="review-bars-inner d-flex w-100 align-items-center">
-                            <span
-                              className="review-bars-review"
-                              data-rating="2.8"
-                            >
-                              <span className="review-bars-review-inner"></span>
-                            </span>
-                            <span className="pill">2.8</span>
-                          </div>
-                        </div>
-                        <div className="review-bars-item">
-                          <span className="review-bars-name">Location</span>
-                          <div className="review-bars-inner d-flex w-100 align-items-center">
-                            <span
-                              className="review-bars-review"
-                              data-rating="3.9"
-                            >
-                              <span className="review-bars-review-inner"></span>
-                            </span>
-                            <span className="pill">3.9</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -402,147 +223,9 @@ function ListingDetails() {
                     </li>
                     <li>
                       <i className="la la-comment mr-2 text-color-2 font-size-18"></i>
-                      <a
-                        href="#"
-                        data-toggle="modal"
-                        data-target="#messageModal"
-                      >
-                        Message the Business
-                      </a>
+                      <a href="#">Message the Business</a>
                     </li>
                   </ul>
-                </div>
-
-                <div className="sidebar-widget">
-                  <h3 className="widget-title">Categories</h3>
-                  <div className="stroke-shape mb-4"></div>
-                  <div className="category-list">
-                    <a
-                      href="#"
-                      className="generic-img-card d-block hover-y overflow-hidden mb-3"
-                    >
-                      <img
-                        src="images/img-loading.html"
-                        data-src="images/generic-small-img.jpg"
-                        alt="image"
-                        className="generic-img-card-img lazy"
-                      />
-                      <div className="generic-img-card-content d-flex align-items-center justify-content-between">
-                        <span className="badge">Restaurants</span>
-                        <span className="generic-img-card-counter">238</span>
-                      </div>
-                    </a>
-                    <a
-                      href="#"
-                      className="generic-img-card d-block hover-y overflow-hidden mb-3"
-                    >
-                      <img
-                        src="images/img-loading.html"
-                        data-src="images/generic-small-img-2.jpg"
-                        alt="image"
-                        className="generic-img-card-img lazy"
-                      />
-                      <div className="generic-img-card-content d-flex align-items-center justify-content-between">
-                        <span className="badge">Food</span>
-                        <span className="generic-img-card-counter">111</span>
-                      </div>
-                    </a>
-                    <a
-                      href="#"
-                      className="generic-img-card d-block hover-y overflow-hidden mb-3"
-                    >
-                      <img
-                        src="images/img-loading.html"
-                        data-src="images/generic-small-img-3.jpg"
-                        alt="image"
-                        className="generic-img-card-img lazy"
-                      />
-                      <div className="generic-img-card-content d-flex align-items-center justify-content-between">
-                        <span className="badge">Hotel</span>
-                        <span className="generic-img-card-counter">222</span>
-                      </div>
-                    </a>
-                    <a
-                      href="#"
-                      className="generic-img-card d-block hover-y overflow-hidden mb-3"
-                    >
-                      <img
-                        src="images/img-loading.html"
-                        data-src="images/generic-small-img-4.jpg"
-                        alt="image"
-                        className="generic-img-card-img lazy"
-                      />
-                      <div className="generic-img-card-content d-flex align-items-center justify-content-between">
-                        <span className="badge">Events</span>
-                        <span className="generic-img-card-counter">123</span>
-                      </div>
-                    </a>
-                    <div
-                      className="collapse collapse-content"
-                      id="showMoreOptionCollapse2"
-                    >
-                      <a
-                        href="#"
-                        className="generic-img-card d-block hover-y overflow-hidden mb-3"
-                      >
-                        <img
-                          src="images/img-loading.html"
-                          data-src="images/generic-small-img-5.jpg"
-                          alt="image"
-                          className="generic-img-card-img lazy"
-                        />
-                        <div className="generic-img-card-content d-flex align-items-center justify-content-between">
-                          <span className="badge">Shopping</span>
-                          <span className="generic-img-card-counter">321</span>
-                        </div>
-                      </a>
-                      <a
-                        href="#"
-                        className="generic-img-card d-block hover-y overflow-hidden mb-3"
-                      >
-                        <img
-                          src="images/img-loading.html"
-                          data-src="images/generic-small-img-6.jpg"
-                          alt="image"
-                          className="generic-img-card-img lazy"
-                        />
-                        <div className="generic-img-card-content d-flex align-items-center justify-content-between">
-                          <span className="badge">Travel</span>
-                          <span className="generic-img-card-counter">12</span>
-                        </div>
-                      </a>
-                      <a
-                        href="#"
-                        className="generic-img-card d-block hover-y overflow-hidden mb-3"
-                      >
-                        <img
-                          src="images/img-loading.html"
-                          data-src="images/generic-small-img-7.jpg"
-                          alt="image"
-                          className="generic-img-card-img lazy"
-                        />
-                        <div className="generic-img-card-content d-flex align-items-center justify-content-between">
-                          <span className="badge">Jobs</span>
-                          <span className="generic-img-card-counter">133</span>
-                        </div>
-                      </a>
-                    </div>
-                    <a
-                      className="collapse-btn"
-                      data-toggle="collapse"
-                      href="#showMoreOptionCollapse2"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="showMoreOptionCollapse2"
-                    >
-                      <span className="collapse-btn-hide">
-                        Show More <i className="la la-plus ml-1"></i>
-                      </span>
-                      <span className="collapse-btn-show">
-                        Show Less <i className="la la-minus ml-1"></i>
-                      </span>
-                    </a>
-                  </div>
                 </div>
 
                 <div className="sidebar-widget">
@@ -637,15 +320,14 @@ function ListingDetails() {
                 <div className="card-item border border-color">
                   <div className="card-image">
                     <a href="listing-details.html" className="d-block">
-                      <img src="images/img4.jpg" className="card__img" alt="" />
+                      <img
+                        src="/img/listings/1691520520582-1.jpeg"
+                        className="card__img"
+                        alt=""
+                      />
                       <span className="badge">now open</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -653,11 +335,12 @@ function ListingDetails() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
-                      <img src="images/listing-logo.jpg" alt="author-img" />
+                      <img
+                        src="/img/listings/1691520520582-1.jpeg"
+                        alt="author-img"
+                      />
                     </a>
                     <h4 className="card-title pt-3">
                       <a href="listing-details.html">
@@ -665,8 +348,6 @@ function ListingDetails() {
                       </a>
                       <i
                         className="la la-check-circle ml-1"
-                        data-toggle="tooltip"
-                        data-placement="top"
                         title="Claimed"
                       ></i>
                     </h4>
@@ -682,12 +363,7 @@ function ListingDetails() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Pricey"
-                        >
+                        <span className="price-range" title="Pricey">
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
@@ -715,15 +391,14 @@ function ListingDetails() {
                 <div className="card-item border border-color">
                   <div className="card-image">
                     <a href="listing-details.html" className="d-block">
-                      <img src="images/img5.jpg" className="card__img" alt="" />
+                      <img
+                        src="/img/listings/1691520520582-1.jpeg"
+                        className="card__img"
+                        alt=""
+                      />
                       <span className="badge bg-10">closed</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -731,11 +406,12 @@ function ListingDetails() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
-                      <img src="images/listing-logo2.jpg" alt="author-img" />
+                      <img
+                        src="/img/listings/1691520520582-1.jpeg"
+                        alt="author-img"
+                      />
                     </a>
                     <h4 className="card-title pt-3">
                       <a href="listing-details.html">Beach Blue Boardwalk</a>
@@ -752,12 +428,7 @@ function ListingDetails() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Moderate"
-                        >
+                        <span className="price-range" title="Moderate">
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
                         </span>
@@ -784,15 +455,14 @@ function ListingDetails() {
                 <div className="card-item border border-color">
                   <div className="card-image">
                     <a href="listing-details.html" className="d-block">
-                      <img src="images/img6.jpg" className="card__img" alt="" />
+                      <img
+                        src="/img/listings/1691520520582-1.jpeg"
+                        className="card__img"
+                        alt=""
+                      />
                       <span className="badge">Now Open</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -800,11 +470,12 @@ function ListingDetails() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
-                      <img src="images/listing-logo3.jpg" alt="author-img" />
+                      <img
+                        src="/img/listings/1691520520582-1.jpeg"
+                        alt="author-img"
+                      />
                     </a>
                     <h4 className="card-title pt-3">
                       <a href="listing-details.html">Hotel Govendor</a>
@@ -821,12 +492,7 @@ function ListingDetails() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Inexpensive"
-                        >
+                        <span className="price-range" title="Inexpensive">
                           <strong className="font-weight-medium">$</strong>
                         </span>
                       </li>
@@ -852,15 +518,14 @@ function ListingDetails() {
                 <div className="card-item border border-color">
                   <div className="card-image">
                     <a href="listing-details.html" className="d-block">
-                      <img src="images/img7.jpg" className="card__img" alt="" />
+                      <img
+                        src="/img/listings/1691520520582-1.jpeg"
+                        className="card__img"
+                        alt=""
+                      />
                       <span className="badge">now open</span>
                     </a>
-                    <span
-                      className="bookmark-btn"
-                      data-toggle="tooltip"
-                      data-placement="top"
-                      title="Save"
-                    >
+                    <span className="bookmark-btn" title="Save">
                       <i className="la la-bookmark"></i>
                     </span>
                   </div>
@@ -868,18 +533,17 @@ function ListingDetails() {
                     <a
                       href="#"
                       className="user-thumb d-inline-block"
-                      data-toggle="tooltip"
-                      data-placement="top"
                       title="TechyDevs"
                     >
-                      <img src="images/anywhere.png" alt="author-img" />
+                      <img
+                        src="/img/listings/1691520520582-1.jpeg"
+                        alt="author-img"
+                      />
                     </a>
                     <h4 className="card-title pt-3">
                       <a href="listing-details.html">Sticky band party</a>
                       <i
                         className="la la-check-circle ml-1"
-                        data-toggle="tooltip"
-                        data-placement="top"
                         title="Claimed"
                       ></i>
                     </h4>
@@ -895,12 +559,7 @@ function ListingDetails() {
                         <span className="rate-text">5 Ratings</span>
                       </li>
                       <li>
-                        <span
-                          className="price-range"
-                          data-toggle="tooltip"
-                          data-placement="top"
-                          title="Pricey"
-                        >
+                        <span className="price-range" title="Pricey">
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
                           <strong className="font-weight-medium">$</strong>
