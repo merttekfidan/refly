@@ -90,7 +90,7 @@ function Login() {
             <div className="btn-box">
               <p className="sub-text-box text-right pt-1 font-weight-medium font-size-14">
                 New to Listhub?
-                <Link to="register">Create account</Link>
+                <Link to="/register">Create account</Link>
               </p>
             </div>
           </div>
