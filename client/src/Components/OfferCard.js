@@ -17,7 +17,7 @@ function OfferCard({ data }) {
     <>
       <div className="card-item border border-color">
         <div className="card-image">
-          <a href="listing-details.html" className="d-block">
+          <a href={`/listing-details/${data._id}`} className="d-block">
             <img
               src={
                 data.images_url[0]
@@ -29,15 +29,9 @@ function OfferCard({ data }) {
             />
             <span className="badge">{data.offer_type}</span>
           </a>
-          <span className="bookmark-btn" title="Save">
-            <i className="la la-bookmark"></i>
-          </span>
         </div>
         <div className="card-content">
-          <a href="/#" className="user-thumb d-inline-block" title="TechyDevs">
-            <img src={`img/listings/${data.images_url[0]}`} alt="author-img" />
-          </a>
-          <h6 className="text-muted pt-3">{data.category}</h6>
+          <h6 className="text-muted pb-2">{data.category}</h6>
           <span className="d-flex align-items-center justify-content-between pt-0">
             <h4 className="card-title">
               <a href="listing-details.html">{data.title}</a>
@@ -47,7 +41,8 @@ function OfferCard({ data }) {
           <p className="card-sub">
             <a href="/#">
               <i className="la la-map-marker mr-1 text-color-2"></i>
-              Bishop Avenue, New York
+              {data.location && data.location.city && data.location.city}/
+              {data.location.voivodeship && data.location.voivodeship}
             </a>
           </p>
           <hr />
