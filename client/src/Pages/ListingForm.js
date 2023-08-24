@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { getAllVoivodeships } from "./../@@API/preFillService";
-import listFormValidation from "./../utils/listFormValidation";
-import { submitListForm } from "./../@@API/offerService";
+import listFormValidation from "../utils/validations/listFormValidation";
+import { submitListForm, submitImages } from "./../@@API/offerService";
 import Hero from "./../Sections/Hero";
 import CarForm from "./../Components/ProductAttrViews/Forms/CarForm";
 import MotorcycleForm from "./../Components/ProductAttrViews/Forms/MotorcycleForm";
 
 function ListingForm() {
   const navigate = useNavigate();
+  const { isSuccess } = useSelector((state) => state.auth);
   const [location, setLocation] = useState([]);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [images, setImages] = useState();
+  const [selectedImages, setSelectedImages] = useState([]);
 
+  // Gets states and cities to populate select
   const apiToStateVoivodaships = async () => {
-    let locationArr = [];
     let res = await getAllVoivodeships();
     if (res) {
       setLocation(res.data);
-      console.log(res.data);
-      console.log(locationArr);
     }
   };
 
@@ -33,10 +33,10 @@ function ListingForm() {
         voivodeship: "0",
         city: "0",
       },
+      images_url: [],
       offer_type: "",
       price: "",
       availability: [],
-      images_url: [],
       description: "",
       consent: false,
     },
@@ -45,8 +45,11 @@ function ListingForm() {
   const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
+    if (!isSuccess) {
+      navigate("/login", { replace: true });
+    }
     apiToStateVoivodaships();
-  }, []);
+  }, [isSuccess]);
 
   // HELPER FUNCTIONS
   const clearProductDetails = () => {
@@ -58,27 +61,46 @@ function ListingForm() {
   const clearOffer = () => {
     setFormData(initialFormData);
   };
+  const clearImages = () => {
+    setSelectedImages([]);
+  };
 
   //////////
 
   const onSubmit = async (e) => {
     try {
       e.preventDefault();
+      setIsSubmitting(true);
       const validationResult = listFormValidation(formData);
       console.log(validationResult);
       if (Object.keys(validationResult).length === 0) {
-        console.log(JSON.stringify(formData));
-        let { status } = await submitListForm(formData);
+        console.log(formData);
+        let { status, data } = await submitListForm(formData);
+        console.log(status);
         if (status === 200) {
-          //clearOffer();
+          const formDataImage = new FormData();
+          // Append selected images from the selectedImages state
+          selectedImages.forEach((image, index) => {
+            formDataImage.append(`images_url`, image);
+          });
+
+          let submittedOfferId = data.data._id;
+          let submittedImage = await submitImages(
+            formDataImage,
+            submittedOfferId
+          );
+          console.log(submittedImage);
+          clearOffer();
           navigate("/listing-added-successfully", { replace: true });
         }
       } else {
         console.log(validationResult);
         setFormErrors(validationResult);
+        setIsSubmitting(false);
       }
     } catch (err) {
       console.log("An Error occured on submit: Err:", err);
+      setIsSubmitting(false);
     }
   };
 
@@ -99,20 +121,21 @@ function ListingForm() {
       }
 
       if (type === "file") {
-        let imageArr = [...files].map((e) => URL.createObjectURL(e));
-        setImages(imageArr);
+        console.log(files);
+
+        const filesArray = Array.from(files); // Convert FileList to Array
+        setSelectedImages(filesArray);
+        console.log(selectedImages);
         return {
           ...prevState,
           offer: {
             ...prevState.offer,
-            images_url: [...files].map((e) => e.name),
           },
         };
       }
       // consent
       if (name === "consent") {
         const updatedConsent = checked;
-        console.log(updatedConsent);
         return {
           ...prevState,
           offer: {
@@ -199,10 +222,11 @@ function ListingForm() {
                     method="post"
                     className="form-box row"
                     onSubmit={onSubmit}
+                    encType="multipart/form-data"
                   >
                     <div className="col-lg-12">
                       <div className="input-box">
-                        <label className="label-text">Category</label>
+                        <label className="label-text">Category*</label>
                         <div className="form-group user-chosen-select-container">
                           <select
                             className="user-chosen-select"
@@ -213,14 +237,16 @@ function ListingForm() {
                             name="category"
                             value={formData.offer.category}
                           >
-                            <option value="0">Select a Product Category</option>
+                            <option value="0">
+                              Select a Product Category*
+                            </option>
                             <option value="Car">Car</option>
                             <option value="Motorcycle">Motorcycle</option>
                           </select>
+                          <p className="error-message">
+                            {formErrors["offer.category"]}
+                          </p>
                         </div>
-                        <p className="error-message">
-                          {formErrors["offer.category"]}
-                        </p>
                       </div>
                     </div>
                     <div className="col-lg-12">
@@ -242,15 +268,15 @@ function ListingForm() {
                             placeholder="Example: Super Duper Car"
                             value={formData.offer.title}
                           />
+                          <p className="error-message">
+                            {formErrors["offer.title"]}
+                          </p>
                         </div>
-                        <p className="error-message">
-                          {formErrors["offer.title"]}
-                        </p>
                       </div>
                     </div>
                     <div className="col-lg-4">
                       <div className="input-box">
-                        <label className="label-text">Voivodeship</label>
+                        <label className="label-text">Voivodeship*</label>
                         <div className="form-group user-chosen-select-container">
                           <select
                             className="user-chosen-select"
@@ -266,15 +292,15 @@ function ListingForm() {
                                 </option>
                               ))}
                           </select>
+                          <p className="error-message">
+                            {formErrors["offer.location.voivodeship"]}
+                          </p>
                         </div>
-                        <p className="error-message">
-                          {formErrors["offer.location.voivodeship"]}
-                        </p>
                       </div>
                     </div>
                     <div className="col-lg-4">
                       <div className="input-box">
-                        <label className="label-text">Cities</label>
+                        <label className="label-text">Cities*</label>
                         <div className="form-group user-chosen-select-container">
                           <select
                             className="user-chosen-select"
@@ -296,15 +322,15 @@ function ListingForm() {
                                 }
                               })}
                           </select>
+                          <p className="error-message">
+                            {formErrors["offer.location.city"]}
+                          </p>
                         </div>
-                        <p className="error-message">
-                          {formErrors["offer.location.city"]}
-                        </p>
                       </div>
                     </div>
                     <div className="col-lg-4">
                       <div className="input-box">
-                        <label className="label-text">Offer Type</label>
+                        <label className="label-text">Offer Type*</label>
                         <div className="form-group user-chosen-select-container">
                           <select
                             className="user-chosen-select"
@@ -317,15 +343,15 @@ function ListingForm() {
                             <option value="sell">Sell</option>
                             <option value="rental">Rental</option>
                           </select>
+                          <p className="error-message">
+                            {formErrors["offer.offer_type"]}
+                          </p>
                         </div>
-                        <p className="error-message">
-                          {formErrors["offer.offer_type"]}
-                        </p>
                       </div>
                     </div>
                     <div className="col-lg-4">
                       <div className="input-box">
-                        <label className="label-text">Price</label>
+                        <label className="label-text">Price*</label>
                         <div className="form-group">
                           <span className="la la-map form-icon"></span>
                           <input
@@ -336,10 +362,10 @@ function ListingForm() {
                             onChange={onChange}
                             value={formData.offer.price}
                           />
+                          <p className="error-message">
+                            {formErrors["offer.price"]}
+                          </p>
                         </div>
-                        <p className="error-message">
-                          {formErrors["offer.price"]}
-                        </p>
                       </div>
                     </div>
                     <div className="col-lg-12">
@@ -395,7 +421,7 @@ function ListingForm() {
                         <div className="file-upload-wrap">
                           <input
                             type="file"
-                            name="files[]"
+                            name="images_url"
                             className="multi file-upload-input with-preview"
                             multiple
                             onChange={onChange}
@@ -405,20 +431,20 @@ function ListingForm() {
                             or click to upload
                           </span>
 
-                          {images ? (
+                          {selectedImages && selectedImages.length !== 0 ? (
                             <div
                               className="MultiFile-list"
                               id="MultiFile1_list"
                             >
                               <div className="MultiFile-label">
                                 <a
-                                  onClick={() => setImages("")}
+                                  onClick={clearImages}
                                   className="MultiFile-remove"
                                 >
                                   x
                                 </a>
                                 <span>
-                                  {images.map((e, key) => (
+                                  {selectedImages.map((e, key) => (
                                     <img
                                       className="MultiFile-preview"
                                       style={{
@@ -426,7 +452,9 @@ function ListingForm() {
                                         maxWidth: "100px",
                                       }}
                                       key={key}
-                                      src={e}
+                                      src={URL.createObjectURL(
+                                        new File([e], e.name)
+                                      )}
                                       alt={key}
                                     />
                                   ))}
@@ -436,10 +464,10 @@ function ListingForm() {
                           ) : (
                             ""
                           )}
+                          <p className="error-message">
+                            {formErrors["offer.images"]}
+                          </p>
                         </div>
-                        <p className="error-message">
-                          {formErrors["offer.images"]}
-                        </p>
                       </div>
                     </div>
                     <div className="col-lg-12">
@@ -452,11 +480,11 @@ function ListingForm() {
                             onChange={onChange}
                             value={formData.offer.description}
                           ></textarea>
+                          <p className="error-message">
+                            {formErrors["offer.description"]}
+                          </p>
                         </div>
                       </div>
-                      <p className="error-message">
-                        {formErrors["offer.description"]}
-                      </p>
                     </div>
                     {formData.offer.category
                       ? productTypeByCategory(formData.offer.category)
@@ -484,15 +512,20 @@ function ListingForm() {
                             href="privacy-policy.html"
                             className="text-color-2"
                           >
-                            Privacy Policy
+                            Privacy Policy.*
                           </a>
-                          .
                         </label>
+                        <p className="error-message">
+                          {formErrors["offer.consent"]}
+                        </p>
                       </div>
                       <div className="btn-box mt-4">
                         <button
                           type="submit"
-                          className="theme-btn gradient-btn border-0"
+                          className={`theme-btn gradient-btn border-0 ${
+                            isSubmitting ? "disabled" : ""
+                          }`}
+                          disabled={isSubmitting}
                         >
                           Create an Offer
                         </button>
