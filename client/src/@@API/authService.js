@@ -4,11 +4,14 @@ const API_URL = "/user/";
 
 // Register
 const register = async (userData) => {
-  const response = await axios.post(API_URL, userData);
-  if (response.data) {
+  try {
+    const response = await axios.post(API_URL, userData);
     localStorage.setItem("user", JSON.stringify(response.data));
+    return response.data;
+  } catch (error) {
+    console.log(error.response.data);
+    throw error;
   }
-  return response.data;
 };
 
 // login
