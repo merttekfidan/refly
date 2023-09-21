@@ -62,7 +62,7 @@ const offerSchema = mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       refPath: "category",
     },
-    userId: {
+    user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
     },
@@ -76,7 +76,7 @@ const offerSchema = mongoose.Schema(
 
 offerSchema.pre(/^find/, function (next) {
   this.populate("product");
-  this.populate("userId");
+  this.populate("user");
   next();
 });
 
