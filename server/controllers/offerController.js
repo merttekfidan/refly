@@ -90,7 +90,7 @@ exports.addOffer = catchAsync(async (req, res, next) => {
     ...offer,
     product: newProduct._id,
     category: offer.category,
-    userId: req.user._id,
+    user: req.user._id,
   });
   res.status(200).json({
     status: "success",
@@ -104,7 +104,7 @@ exports.updateOffer = catchAsync(async (req, res, next) => {
   let query = { _id: offerId };
   // Checks roles already. Admin has all permissions
   if (!req.user.role.includes("admin")) {
-    query = { userId: req.user._id, _id: offerId };
+    query = { user: req.user._id, _id: offerId };
   }
   const updatedOffer = await Offer.findOneAndUpdate(
     query,
@@ -136,7 +136,7 @@ exports.deleteOffer = catchAsync(async (req, res, next) => {
   let query = { _id: offerId };
   // Checks roles already. Admin has all permissions
   if (!req.user.role.includes("admin")) {
-    query = { userId: req.user._id, _id: offerId };
+    query = { user: req.user._id, _id: offerId };
   }
   const offer = await Offer.findOne(query);
   if (!offer) {
