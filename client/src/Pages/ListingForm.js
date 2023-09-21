@@ -10,7 +10,7 @@ import MotorcycleForm from "./../Components/ProductAttrViews/Forms/MotorcycleFor
 
 function ListingForm() {
   const navigate = useNavigate();
-  const { isSuccess } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const [location, setLocation] = useState([]);
   const [formErrors, setFormErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -45,11 +45,12 @@ function ListingForm() {
   const [formData, setFormData] = useState(initialFormData);
 
   useEffect(() => {
-    if (!isSuccess) {
+    if (!user) {
       navigate("/login", { replace: true });
     }
+    console.log(user);
     apiToStateVoivodaships();
-  }, [isSuccess]);
+  }, [user]);
 
   // HELPER FUNCTIONS
   const clearProductDetails = () => {
