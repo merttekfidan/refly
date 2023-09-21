@@ -9,7 +9,7 @@ export const submitListForm = async (formData) => {
   try {
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token.token}`,
       },
     };
     const submittedList = await axios.post(FORM_URL, formData, config);
@@ -23,7 +23,7 @@ export const submitImages = async (formData, id) => {
   try {
     const config = {
       headers: {
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token.token}`,
         "Content-Type": "multipart/form-data",
       },
     };
@@ -41,6 +41,6 @@ export const getOneOffer = async (offerId) => {
     console.log(offer.data);
     return offer.data;
   } catch (err) {
-    console.log(err);
+    return err.response;
   }
 };
