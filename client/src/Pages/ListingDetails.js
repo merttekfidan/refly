@@ -7,19 +7,22 @@ import { getOneOffer } from "./../@@API/offerService";
 function ListingDetails() {
   const { offerId } = useParams();
   const [offer, setOffer] = useState({});
+
+  // GET data from API
   const getOfferFromApi = async (offerId) => {
     try {
       const res = await getOneOffer(offerId);
       setOffer(res.data);
-      console.log(res);
+      console.log("succes:", res);
     } catch (err) {
       console.log(err);
     }
   };
+
   useEffect(() => {
     getOfferFromApi(offerId);
   }, []);
-  return (
+  return offer ? (
     <>
       <section className="breadcrumb-area bg-gradient-gray py-5">
         <div className="container">
@@ -77,15 +80,14 @@ function ListingDetails() {
               <div className="listing-detail-wrap">
                 <div className="card mb-4">
                   <Carousel showArrows={true} showThumbs={true}>
-                    {offer.images_url
-                      ? offer.images_url.map((e, index) => {
-                          return (
-                            <div key={index}>
-                              <img src={`/img/listings/${e}`} />
-                            </div>
-                          );
-                        })
-                      : ""}
+                    {offer.images_url &&
+                      offer.images_url.map((e, index) => {
+                        return (
+                          <div key={index}>
+                            <img src={`/img/listings/${e}`} />
+                          </div>
+                        );
+                      })}
                   </Carousel>
                 </div>
 
@@ -119,39 +121,20 @@ function ListingDetails() {
                   </div>
                   <div className="block-card-body">
                     <div className="review-content d-flex flex-wrap align-items-center">
-                      <div className="review-bars d-flex flex-row flex-wrap flex-grow-1 align-items-center">
-                        <div className="review-bars-item d-flex justify-content-between">
-                          <span className="review-bars-name">Service</span>
-                          <span className="review-bars-name">Service</span>
-                        </div>
-                        <div className="review-bars-item">
-                          <span className="review-bars-name">
-                            Value for Money
+                      <div className="review-bars d-flex flex-wrap flex-grow-1 justify-content-between">
+                        <div className="col-sm">
+                          <span className="review-bars-name pr-2">
+                            Service Name
                           </span>
-                          <div className="review-bars-inner d-flex w-100 align-items-center">
-                            <span className="review-bars-review">
-                              <span className="review-bars-review-inner"></span>
-                            </span>
-                            <span className="pill">4.0</span>
-                          </div>
+                          <span className="review-bars-value">1.5</span>
                         </div>
-                        <div className="review-bars-item">
-                          <span className="review-bars-name">Quality</span>
-                          <div className="review-bars-inner d-flex w-100 align-items-center">
-                            <span className="review-bars-review">
-                              <span className="review-bars-review-inner"></span>
-                            </span>
-                            <span className="pill">2.8</span>
-                          </div>
-                        </div>
-                        <div className="review-bars-item">
-                          <span className="review-bars-name">Location</span>
-                          <div className="review-bars-inner d-flex w-100 align-items-center">
-                            <span className="review-bars-review">
-                              <span className="review-bars-review-inner"></span>
-                            </span>
-                            <span className="pill">3.9</span>
-                          </div>
+                        <div className="col-sm">
+                          <span className="review-bars-name pr-2">
+                            Service Name
+                          </span>
+                          <span className="review-bars-name">
+                            Service Value Service Value
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -164,35 +147,8 @@ function ListingDetails() {
                   </div>
                   <div className="block-card-body">
                     <p className="pb-3 font-weight-medium line-height-30">
-                      {offer.description}
+                      {offer.description && offer.description}
                     </p>
-                    <div
-                      className="collapse collapse-content"
-                      id="showMoreOptionCollapse"
-                    >
-                      <p className="font-weight-medium line-height-30 pb-3">
-                        Porpoise uncritical gosh and much and this haughtily
-                        broadcast goodness ponderous squid darn in sheepish yet
-                        the slapped mildly and adventurously sincere less
-                        dalmatian assentingly wherever left ethereal the
-                        underneath oh lustily arduously that a groggily some
-                        vexedly broadcast sheepish yet the slapped.
-                      </p>
-                    </div>
-                    <a
-                      className="collapse-btn"
-                      href="#showMoreOptionCollapse"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="showMoreOptionCollapse"
-                    >
-                      <span className="collapse-btn-hide">
-                        Read More <i className="la la-plus ml-1"></i>
-                      </span>
-                      <span className="collapse-btn-show">
-                        Read Less <i className="la la-minus ml-1"></i>
-                      </span>
-                    </a>
                   </div>
                 </div>
               </div>
@@ -205,7 +161,7 @@ function ListingDetails() {
                   <ul className="list-items list-items-style-2">
                     <li>
                       <i className="la la-external-link mr-2 text-color-2 font-size-18"></i>
-                      <a href="#">www.techydevs.com</a>
+                      <a href="#">{offer.user && offer.user.name}</a>
                     </li>
                     <li>
                       <i className="la la-phone mr-2 text-color-2 font-size-18"></i>
@@ -590,6 +546,8 @@ function ListingDetails() {
         </div>
       </section>
     </>
+  ) : (
+    "Loading"
   );
 }
 
